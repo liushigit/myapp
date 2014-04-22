@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+  form(method='post', action='/blog/')
+    input(name='blog[title]')
+    textarea(name='blog[body]')
+    input(type='submit', value='Save')

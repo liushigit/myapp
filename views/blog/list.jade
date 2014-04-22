@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    - if(docs.length)
+      table
+        tr
+          th Blog
+        each b in docs
+          tr
+            td #{b.title}
+            td 
+               a(href="/blog/#{b.id}/edit/") Edit
+    - else
+      p You don't have any blogs!

@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  form(method="post", action="/blog/" + blog.id)
+    input(name="_method", value='PUT', type="hidden")
+    input(name='blog[title]', value="#{blog.title}")
+    textarea(name='blog[body]') #{blog.body}
+    input(type='submit', value='Save')

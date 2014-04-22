@@ -19,39 +19,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "app.js",
-			"settings":
-			{
-				"buffer_size": 1418,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests/blogTests.js",
-			"settings":
-			{
-				"buffer_size": 265,
-				"line_ending": "Windows",
-				"name": "var app = require('../app')"
-			}
-		},
-		{
-			"file": "bin/www",
-			"settings":
-			{
-				"buffer_size": 270,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "routes/index.js",
-			"settings":
-			{
-				"buffer_size": 1657,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -77,11 +44,13 @@
 	},
 	"file_history":
 	[
+		"/C/_Doc/Learn/myru/sites/myapp/routes/index.js",
+		"/C/_Doc/Learn/myru/sites/myapp/bin/www",
+		"/C/_Doc/Learn/myru/sites/myapp/app.js",
+		"/C/_Doc/Learn/myru/sites/myapp/tests/blogTests.js",
 		"/C/_Doc/Learn/myru/sites/myapp/views/blog/edit.jade",
 		"/C/aaa/Sublime/Data/Packages/Default/Preferences.sublime-settings",
-		"/C/_Doc/Learn/myru/sites/myapp/routes/index.js",
 		"/C/_Doc/Learn/myru/sites/myapp/views/blog/new.jade",
-		"/C/_Doc/Learn/myru/sites/myapp/app.js",
 		"/C/_Doc/Learn/myru/sites/myapp/routes/users.js",
 		"/C/_Doc/Learn/myru/sites/myapp/package.json",
 		"/C/_Doc/Learn/myru/sites/myapp/views/blog/list.jade",
@@ -124,118 +93,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app.js",
-					"settings":
-					{
-						"buffer_size": 1418,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1057.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "tests/blogTests.js",
-					"settings":
-					{
-						"buffer_size": 265,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								261,
-								261
-							]
-						],
-						"settings":
-						{
-							"auto_name": "var app = require('../app')",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "bin/www",
-					"settings":
-					{
-						"buffer_size": 270,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "routes/index.js",
-					"settings":
-					{
-						"buffer_size": 1657,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 461.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],

@@ -44,6 +44,10 @@
 	},
 	"file_history":
 	[
+		"/Users/shiliu/_code/sites/myapp/test/blogTests.js",
+		"/Users/shiliu/_code/sites/myapp/blog/routes.js",
+		"/Users/shiliu/_code/sites/myapp/blog/controller.js",
+		"/Users/shiliu/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
 		"/C/_Doc/Learn/myru/sites/myapp/blog/routes.js",
 		"/C/_Doc/Learn/myru/sites/myapp/app.js",
 		"/C/_Doc/Learn/myru/sites/myapp/routes/../blog/routes.js",
@@ -160,6 +164,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 182.0,
+	"side_bar_width": 248.0,
 	"status_bar_visible": true
 }

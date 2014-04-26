@@ -16,7 +16,7 @@ var new_ = function(req, res) {
 
 var create = function(req, res) {
     var entry = new BlogEntry(req.body.blog);
-	console.log(req.body.blog);
+    console.log(req.body.blog);
     console.log(req.body.blog.body);
     entry.save(function(err) {
         if (!err) {

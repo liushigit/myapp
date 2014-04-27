@@ -10,12 +10,13 @@ var index = function(req, res) {
     });
 };
 
-var create = function(req, res) {
+var new_ = function(req, res) {
     res.render('blog/new', {});
 };
 
-var save_new = function(req, res) {
+var create = function(req, res) {
     var entry = new BlogEntry(req.body.blog);
+    console.log(req.body.blog);
     console.log(req.body.blog.body);
     entry.save(function(err) {
         if (!err) {
@@ -50,10 +51,10 @@ var update = function(req, res) {
 
 var blog_actions = {
     'update': update,
-    'create': create,
+    'new_': new_,
     'index': index,
     'edit': edit,
-    'save_new': save_new
+    'create': create
 };
 
 module.exports = blog_actions;

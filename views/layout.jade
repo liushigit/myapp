@@ -2,6 +2,11 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/css/style.css')
   body
+    -if(messages)
+        -if(messages.success)
+            p= messages.success
+        -if(messages.error)
+            p= messages.error
     block content

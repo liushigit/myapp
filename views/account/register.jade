@@ -1,0 +1,13 @@
+h1 注册
+form(action="/register", method="post")
+    div
+      label(for="username") 用户名
+      input#username(type="text", name="username")
+    div 
+      label(for="password") 密码
+      input#password(type="password", name="password")
+    div 
+      label(for="password") 密码（再次输入）
+      input#password-confirm(type="password", name="password-confirm")
+    div
+      input(type="submit", value="Log in")

@@ -2,16 +2,33 @@ var models = require('./models');
 var BlogEntry = models.BlogEntry;
 
 var index = function(req, res) {
-    // console.log('processing...')
-    BlogEntry.find({}, function(err, docs) {
+    // req.flash('info', 'Flash Message Added');
+    console.log('in index');
+    /*req.session.reload(function (err){
+        console.log('reload session');
+        console.log(err);
+    });*/
+    req.session.ttt = '12';
+    req.session.save(function (err){
+        console.log(err);
+    });
+    console.log(req.session);
+
+    BlogEntry.find({}, function (err, docs) {
         res.render('blog/list', {
-           'docs': docs
+           'docs': docs,
+           'messages': req.session.flash
         });
     });
 };
 
 var new_ = function(req, res) {
-    res.render('blog/new', {});
+    req.session.reload(function (err){
+        console.log(err);
+    });
+
+    console.log(req.session.ttt);
+    res.render('blog/new', {'ttt': req.session.ttt});
 };
 
 var create = function(req, res) {

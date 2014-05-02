@@ -1,7 +1,4 @@
-var mongoose = require('mongoose')
-
-mongoose.connect('mongodb://localhost/myapp_dev')
-
+var mongoose = require('../db')
 var Schema = mongoose.Schema;
 // var ObjectId = Schema.ObjectId;
 

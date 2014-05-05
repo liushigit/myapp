@@ -1,8 +1,10 @@
-var mongoose = require('../db')
+"use strict";
+
+var mongoose = require('../db');
 var Schema = mongoose.Schema;
 
 var UserSchema = Schema({
-    username: String, 
+    username: String,
     password: String,
 });
 
@@ -13,5 +15,5 @@ UserSchema.methods.validPassword = function (password) {
 
 var User = mongoose.model('User', UserSchema);
 
-module.exports = {}
+module.exports = {};
 module.exports.User = User;

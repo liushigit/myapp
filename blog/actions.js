@@ -4,20 +4,14 @@ var BlogEntry = models.BlogEntry;
 var index = function(req, res) {
     // req.flash('info', 'Flash Message Added');
     console.log('in index');
-    /*req.session.reload(function (err){
-        console.log('reload session');
-        console.log(err);
-    });*/
+    console.log(req.user);
     req.session.ttt = '12';
-    req.session.save(function (err){
-        console.log(err);
-    });
-    console.log(req.session);
 
     BlogEntry.find({}, function (err, docs) {
         res.render('blog/list', {
            'docs': docs,
-           'messages': req.session.flash
+           'messages': req.flash(),
+           'user': req.user
         });
     });
 };

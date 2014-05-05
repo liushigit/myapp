@@ -17,11 +17,11 @@ var express = require('express'),
 
     app = express(),
 
-/* Passport configuration */
+    /* Passport configuration */
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({usernameField: 'u', passwordField: 'pw'},
     function (username, password, done) {
         User.findOne({ username: username }, function (err, user) {
             if (err) {

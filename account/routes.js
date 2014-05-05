@@ -7,7 +7,8 @@ var express = require('express'),
 
 
 router.get('/login', function (req, res) {
-    res.render('account/login', { title: 'Login' });
+    var messages = req.flash();
+    res.render('account/login', { title: 'Login', 'messages': messages });
 });
 
 /*router.post('/login', passport.authenticate('local',
@@ -24,12 +25,14 @@ router.post('/login', function (req, res, next) {
             return next(err);
         }
         if (!user) {
+            req.flash('error', '用户名或密码错误。');
             return res.redirect('/login');
         }
         req.logIn(user, function (err) {
             if (err) {
                 return next(err);
             }
+            req.flash('success', '欢迎回来！');
             return res.redirect('/blog/');
         });
     })(req, res, next);
@@ -46,7 +49,7 @@ router.post('/register', function (req, res) {
 
     User.findOne({ username: username }, function (err, user) {
         if (err) {
-
+            //...
         }
         if (!user) {
 
@@ -54,7 +57,7 @@ router.post('/register', function (req, res) {
 
             user.save(function (err) {
                 if (!err) {
-                    res.redirect('/login');
+                    res.redirect('/register');
                 } else {
                     res.redirect('/register');
                 }

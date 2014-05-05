@@ -1,6 +1,8 @@
 extends ../layout
 
 block content
+    - if(user)
+      p.user 你好！#{user.username}
     - if(docs.length)
       table
         tr

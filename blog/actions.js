@@ -8,9 +8,7 @@ var index = function(req, res) {
 
     BlogEntry.find({}, function (err, docs) {
         res.render('blog/list', {
-           'docs': docs /* ,
-           'messages': req.flash(),
-           'user': req.user */
+           'docs': docs 
         });
     });
 };

@@ -2,16 +2,15 @@ var models = require('./models');
 var BlogEntry = models.BlogEntry;
 
 var index = function(req, res) {
-    // req.flash('info', 'Flash Message Added');
     console.log('in index');
     console.log(req.user);
     req.session.ttt = '12';
 
     BlogEntry.find({}, function (err, docs) {
         res.render('blog/list', {
-           'docs': docs,
+           'docs': docs /* ,
            'messages': req.flash(),
-           'user': req.user
+           'user': req.user */
         });
     });
 };

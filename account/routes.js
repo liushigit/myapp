@@ -7,8 +7,8 @@ var express = require('express'),
 
 
 router.get('/login', function (req, res) {
-    var messages = req.flash();
-    res.render('account/login', { title: 'Login', 'messages': messages });
+    / * var messages = req.flash(); */
+    res.render('account/login', { title: 'Login'/*, 'messages': messages */});
 });
 
 /*router.post('/login', passport.authenticate('local',

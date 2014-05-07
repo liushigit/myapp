@@ -71,6 +71,15 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function (req, res, next) {
+    console.log('in mid');
+    console.log(res.locals);
+    res.locals = req.locals || {};
+    res.locals.user = req.user;
+    res.locals.messages = req.flash();
+    next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', blog_routes);

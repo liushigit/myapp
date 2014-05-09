@@ -1,23 +1,26 @@
+"use strict";
+
 var request = require('supertest');
 var app = require('../app');
 
-describe('GET /login', function() {
-    it('gets login page', function(done) {
+describe('GET /login', function () {
+    it('gets login page', function (done) {
         request(app)
             .get('/login')
             .expect(200, done);
     });
 });
 
-describe('POST to /login', function() {
-    it('logs in', function(done){
+describe('POST to /login', function () {
+    it('logs in succesfully', function (done) {
         request(app)
             .post('/login')
-            .send({u:'liushi', pw:'123456'})
-            .expect(200)
-            .end(function(err) {
+            .send({u: 'liushi', pw: '123456'})
+            .expect(302)
+            .expect('location', '/blog/')
+            .end(function (err, res) {
                 if (err) {
-                    console.log(err);
+                    return done(err);
                 }
                 done();
             });

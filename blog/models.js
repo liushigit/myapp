@@ -5,6 +5,9 @@ var Schema = mongoose.Schema;
 var BlogEntrySchema = Schema({
     title: String, 
     body: String,
+    created: Date,
+    updated: { type: Date, default: Date.now },
+    userId: Schema.Types.ObjectId
 });
 
 var BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);

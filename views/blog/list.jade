@@ -9,7 +9,8 @@ block content
           th Blog
         each b in docs
           tr
-            td #{b.title}
+            td 
+               a(href="/blog/#{b.id}") #{b.title}
             td 
                a(href="/blog/#{b.id}/edit/") Edit
     - else

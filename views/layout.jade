@@ -8,5 +8,6 @@ html
         -if(msgs.success)
             p= msgs.success
         -if(msgs.error)
-            p= msgs.error
+            - each e in msgs.error
+              p= e
     block content

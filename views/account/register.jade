@@ -1,5 +1,8 @@
-h1 注册
-form(action="/register", method="post")
+extends ../layout
+
+block content
+  h1 注册
+  form(action="/register", method="post")
     div
       label(for="username") 用户名
       input#username(type="text", name="username")

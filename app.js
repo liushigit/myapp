@@ -70,13 +70,17 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(function (req, res, next) {
     res.locals.user = req.user;
     res.locals.msgs = req.flash();
+    console.log("in mdware");
+    console.log(res.locals.msgs);
     next();
 });
 
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', blog_routes);
 app.use('/', account_routes);

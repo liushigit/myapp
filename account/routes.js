@@ -38,30 +38,34 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/register', function (req, res) {
-    res.render('account/register', { title: '注册' });
+    res.render('account/register', { title: '注册'});
 });
 
 router.post('/register', function (req, res) {
 
     var username = req.param('username'),
-        password = req.param('password');
+        password = req.param('password'),
+        confirm = req.param('password-confirm');
 
     User.findOne({ username: username }, function (err, user) {
-        if (err) {
-            //...
+        if (password != confirm) {
+            console.log("in post");
+            req.flash('error', '两次输入的密码不一致。');
         }
-        if (!user) {
 
-            user = new User({'username': username, 'password': password });
-
+        if (user) {
+            console.log("inpost");
+            console.log(req.flash('error', "ABCCC"));
+        } else if (password == confirm ) {
+            user = new User({'username': username, 
+                             'password': password });
             user.save(function (err) {
                 if (!err) {
-                    res.redirect('/register');
-                } else {
-                    res.redirect('/register');
-                }
+                    req.flash('error', "Some Error");
+                } 
             });
-        }
+        } 
+        res.redirect('/register');
     });
 });
 

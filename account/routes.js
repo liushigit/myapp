@@ -49,22 +49,20 @@ router.post('/register', function (req, res) {
 
     User.findOne({ username: username }, function (err, user) {
         if (password != confirm) {
-            console.log("in post");
             req.flash('error', '两次输入的密码不一致。');
         }
 
         if (user) {
-            console.log("inpost");
-            console.log(req.flash('error', "ABCCC"));
-        } else if (password == confirm ) {
-            user = new User({'username': username, 
-                             'password': password });
+            console.log(req.flash('error', "该用户名已经被占用。"));
+        } else if (password == confirm) {
+            user = new User({'username': username,
+                             'password': password});
             user.save(function (err) {
                 if (!err) {
                     req.flash('error', "Some Error");
-                } 
+                }
             });
-        } 
+        }
         res.redirect('/register');
     });
 });

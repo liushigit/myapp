@@ -45,15 +45,18 @@ router.post('/register', function (req, res) {
 
     var username = req.param('username'),
         password = req.param('password'),
-        confirm = req.param('password-confirm');
+        confirm = req.param('password-confirm'),
+        redirectURL = '/login';
 
     User.findOne({ username: username }, function (err, user) {
         if (password != confirm) {
             req.flash('error', '两次输入的密码不一致。');
+            redirectURL = '/register'
         }
 
         if (user) {
             console.log(req.flash('error', "该用户名已经被占用。"));
+            redirectURL = '/register'
         } else if (password == confirm) {
             user = new User({'username': username,
                              'password': password});
@@ -63,7 +66,7 @@ router.post('/register', function (req, res) {
                 }
             });
         }
-        res.redirect('/register');
+        res.redirect(redirectURL);
     });
 });
 

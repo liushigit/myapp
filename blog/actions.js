@@ -2,12 +2,16 @@ var models = require('./models');
 var BlogEntry = models.BlogEntry;
 
 var index = function(req, res) {
-    console.log(req.user);
-    BlogEntry.find({userId: req.user._id}, function (err, docs) {
-        res.render('blog/list', {
-           'docs': docs
+    if (req.user) {
+        BlogEntry.find({userId: req.user._id}, function (err, docs) {
+            res.render('blog/list', {
+               'docs': docs
+            });
         });
-    });
+    } else {
+        res.redirect('/login')
+    }
+    
 };
 
 var show = function(req, res) {

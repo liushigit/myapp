@@ -3,7 +3,8 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
-    User = require('./models').User;
+    User = require('./models').User,
+    Utility = require('./models').Utility;
 
 
 router.get('/login', function (req, res) {
@@ -59,7 +60,7 @@ router.post('/register', function (req, res) {
             redirectURL = '/register'
         } else if (password == confirm) {
             user = new User({'username': username,
-                             'password': password});
+                             'password': Utility.encrypt(password)});
             user.save(function (err) {
                 if (!err) {
                     req.flash('error', "Some Error");

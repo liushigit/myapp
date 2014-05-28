@@ -44,7 +44,7 @@ router.get('/register', function (req, res) {
 
 router.post('/register', function (req, res) {
 
-    var username = req.param('username'),
+    var username = req.param('username').trim(),
         password = req.param('password'),
         confirm = req.param('password-confirm'),
         redirectURL = '/register',
@@ -69,7 +69,6 @@ router.post('/register', function (req, res) {
                              'password': Utility.encrypt(password)});
 
             user.save(function (err) {
-
                 if (err) {
                     // error_found = true;
                     if (err.errors.username) {

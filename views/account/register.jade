@@ -6,6 +6,8 @@ block content
     div
       label(for="username") 用户名
       input#username(type="text", name="username")
+      -if(msgs.username)
+        p= msgs.username
     div 
       label(for="password") 密码
       input#password(type="password", name="password")
@@ -13,4 +15,4 @@ block content
       label(for="password") 密码（再次输入）
       input#password-confirm(type="password", name="password-confirm")
     div
-      input(type="submit", value="Log in")
+      input(type="submit", value="注册")

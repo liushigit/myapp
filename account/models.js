@@ -3,13 +3,24 @@
 var mongoose = require('../db');
 var Schema = mongoose.Schema;
 
-var UserSchema = Schema({
-    username: String,
-    password: String,
+var UserSchema = new Schema({
+    username: {type: String,
+           required: true,
+           trim: true,
+           match: /[\w\d]{6,20}/
+    },
+    password: {
+        type: String,
+        required: true
+    }
 });
 
+// var UserSchema = Schema({
+//     username: String,
+//     password: String,
+// });
+
 UserSchema.methods.validPassword = function (password) {
-    console.log(password);
     return Utility.encrypt(password) === this.password;
 };
 

@@ -57,17 +57,22 @@ router.post('/register', function (req, res) {
 
         if (user) {
             console.log(req.flash('error', "该用户名已经被占用。"));
-            redirectURL = '/register'
+            res.redirect('/login')
         } else if (password == confirm) {
             user = new User({'username': username,
                              'password': Utility.encrypt(password)});
             user.save(function (err) {
-                if (!err) {
-                    req.flash('error', "Some Error");
+                if (err) {
+                    if (err.errors.username) {
+                        req.flash('username', 
+                                  err.errors.username.message);
+                    }
+                    res.redirect('/register');
+                } else {
+                    res.redirect('/login');
                 }
             });
-        }
-        res.redirect(redirectURL);
+        } 
     });
 });
 

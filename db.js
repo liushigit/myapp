@@ -1,5 +1,5 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/myapp_dev')
+mongoose.connect('mongodb://localhost/myapp_dev3');
 
-module.exports = mongoose
+module.exports = mongoose;

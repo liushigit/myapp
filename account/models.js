@@ -5,9 +5,9 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     username: {type: String,
-           required: true,
-           trim: true,
-           match: /[\w\d]{6,20}/
+               required: true,
+               trim: true,
+               match: /[\w\d]{6,20}/
     },
     password: {
         type: String,

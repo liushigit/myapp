@@ -1,8 +1,18 @@
 extends ../layout
 
+block title
+	编辑文章
+
 block content
-  form(method="post", action="/blog/" + blog.id)
-    input(name="_method", value='PUT', type="hidden")
-    input(name='blog[title]', value="#{blog.title}")
-    textarea(name='blog[body]') #{blog.body}
-    input(type='submit', value='Save')
+	form(role='form', method="post", action="/blog/" + blog.id)
+		input(name="_method", value='PUT', type="hidden")
+		fieldset
+			legend 编辑
+			div.form-group
+				label(for='title') 标题
+				input#title.form-control(name='blog[title]', value="#{blog.title}")
+			div.form-group
+				label(for='body') 正文
+				textarea#body.form-control(name='blog[body]') #{blog.body}
+
+		input.btn.btn-default(type='submit', value='Save')

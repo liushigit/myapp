@@ -15,7 +15,7 @@ describe('POST to /login', function () {
     it('logs in succesfully', function (done) {
         request(app)
             .post('/login')
-            .send({u: 'liushi', pw: '123456'})
+            .send({u: 'testuser', pw: '123456'})
             .expect(302)
             .expect('location', '/blog/')
             .end(function (err, res) {

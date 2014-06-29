@@ -1,11 +1,14 @@
 extends ../layout
 
+block title
+	添加文章
+
 block content
-  form(method='post', action='/blog/', role='form')
-    div.form-group
-      label(for='title') 标题
-      input.form-control(id='title', name='blog[title]')
-    div.form-group
-      label(for='body') 正文
-      textarea.form-control(id='body', name='blog[body]')
-    input.btn.btn-default(type='submit', value='Save')
+	form(method='post', action='/blog/', role='form')
+		div.form-group
+			label(for='title') 标题
+			input.form-control(id='title', name='blog[title]')
+		div.form-group
+			label(for='body') 正文
+			textarea.form-control(id='body', name='blog[body]')
+		input.btn.btn-default(type='submit', value='Save')

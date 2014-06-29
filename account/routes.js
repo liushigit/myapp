@@ -8,7 +8,7 @@ var express = require('express'),
 
 
 router.get('/login', function (req, res) {
-    res.render('account/login', { title: 'Login'});
+    res.render('account/login');
 });
 
 /*router.post('/login', passport.authenticate('local',
@@ -39,7 +39,7 @@ router.post('/login', function (req, res, next) {
 });
 
 router.get('/register', function (req, res) {
-    res.render('account/register', { title: '注册'});
+    res.render('account/register');
 });
 
 router.post('/register', function (req, res) {

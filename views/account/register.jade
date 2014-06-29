@@ -1,18 +1,22 @@
 extends ../layout
 
+block title
+  注册
+
 block content
-  h1 注册
-  form(action="/register", method="post")
-    div
-      label(for="username") 用户名
-      input#username(type="text", name="username")
-      -if(msgs.username)
-        p= msgs.username
-    div 
-      label(for="password") 密码
-      input#password(type="password", name="password")
-    div 
-      label(for="password") 密码（再次输入）
-      input#password-confirm(type="password", name="password-confirm")
-    div
-      input(type="submit", value="注册")
+  form(role='form', action="/register", method="post")
+    fieldset
+      legend 注册
+      div.form-group
+        label(for="username") 用户名
+        input#username.form-control(type="text", name="username")
+        -if(msgs.username)
+          p= msgs.username
+      div.form-group
+        label(for="password") 密码
+        input#password.form-control(type="password", name="password")
+      div.form-group
+        label(for="password-cfm") 密码（再次输入）
+        input#password-cfm.form-control(type="password", name="password-confirm")
+    
+    input.btn.btn-default(type="submit", value="注册")

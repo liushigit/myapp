@@ -1,7 +1,9 @@
 doctype html
 html
 	head
-		title= title
+		meta(charset='utf-8')
+		title
+			block title
 		link(rel='stylesheet', href='/blogstrap/css/styles.css')
 	body
 		nav.navbar.navbar-default.navbar-static-top(role="navigation")
@@ -12,7 +14,7 @@ html
 							span.caret
 						ul.dropdown-menu(role='menu')
 							li
-								a(href="") 我的博客
+								a(href="/blog/") 我的博客
 							li
 								a(href="/blog/new") 添加文章
 				ul.nav.navbar-nav.navbar-right
@@ -30,7 +32,6 @@ html
 				-if(msgs.error)
 					- each e in msgs.error
 						p= e
-
 			block content
 		script(src='/jquery.js')
 		script(src='/bootstrap.js')

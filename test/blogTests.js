@@ -10,7 +10,7 @@ describe('GET /blog/', function() {
     it('should login', function(done) {
         agent
             .post('/login')
-            .send({u: 'liushi', pw: '123456'})
+            .send({u: 'testuser', pw: '123456'})
             .expect(302, done);
     });
 

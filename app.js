@@ -48,7 +48,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(favicon());
@@ -65,8 +65,8 @@ app.use(session({ secret: 'Simple Example',
                   cookie: { secure: false },
                   store: sessionStore
                 }));
-app.use(flash());
 
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

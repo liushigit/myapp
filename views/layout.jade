@@ -1,13 +1,36 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/css/style.css')
-  body
-    -if(msgs)
-        -if(msgs.success)
-            p= msgs.success
-        -if(msgs.error)
-            - each e in msgs.error
-              p= e
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/blogstrap/css/styles.css')
+	body
+		nav.navbar.navbar-default.navbar-static-top(role="navigation")
+			div.container
+				ul.nav.navbar-nav
+					li.dropdown
+						a.dropdown-toggle(data-toggle='dropdown') Blog
+							span.caret
+						ul.dropdown-menu(role='menu')
+							li
+								a(href="") 我的博客
+							li
+								a(href="/blog/new") 添加文章
+				ul.nav.navbar-nav.navbar-right
+					-if(user)
+						li
+							a #{user.username}
+		div.container
+			-if(msgs)
+				-if(msgs.success)
+					div.alert.alert-success.alert-dismissible(role='alert')
+						button.close(type='button', data-dismiss='alert')
+							span(aria-hidden='true') &times;
+							span.sr-only Close
+						span= msgs.success
+				-if(msgs.error)
+					- each e in msgs.error
+						p= e
+
+			block content
+		script(src='/jquery.js')
+		script(src='/bootstrap.js')

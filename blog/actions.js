@@ -15,7 +15,7 @@ var index = function(req, res) {
 };
 
 var show = function(req, res) {
-    BlogEntry.findById(req.params.id, function(err, doc) {
+    BlogEntry.findById(req.params.id, function (err, doc) {
         res.render('blog/show', {
             entry: doc
         });
@@ -23,11 +23,7 @@ var show = function(req, res) {
 }
 
 var new_ = function(req, res) {
-    req.session.reload(function (err){
-        console.log(err);
-    });
-
-    res.render('blog/new', {'ttt': req.session.ttt});
+    res.render('blog/new');
 };
 
 var create = function(req, res) {
@@ -36,7 +32,7 @@ var create = function(req, res) {
     entry.userId = req.user._id;
     entry.created = Date.now();
 
-    entry.save(function(err) {
+    entry.save(function (err) {
         if (!err) {
             res.redirect('/blog/');
         } else {
@@ -47,7 +43,7 @@ var create = function(req, res) {
 };
 
 var edit = function(req, res) {
-    BlogEntry.findById(req.params.id, function(err, doc) {
+    BlogEntry.findById(req.params.id, function (err, doc) {
         res.render('blog/edit', {
             blog: doc
         });

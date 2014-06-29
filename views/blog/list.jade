@@ -1,17 +1,15 @@
 extends ../layout
 
 block content
-    - if(user)
-      p.user 你好！#{user.username}
-    - if(docs.length)
-      table
-        tr
-          th Blog
-        each b in docs
-          tr
-            td 
-               a(href="/blog/#{b.id}") #{b.title}
-            td 
-               a(href="/blog/#{b.id}/edit/") Edit
-    - else
-      p You don't have any blogs!
+	-if(docs.length)
+		table
+			tr
+				th Blog
+			each b in docs
+				tr
+					td
+						a(href="/blog/#{b.id}") #{b.title}
+					td
+						a(href="/blog/#{b.id}/edit/") Edit
+	-else
+		p You don't have any blogs!

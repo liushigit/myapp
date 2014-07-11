@@ -1,75 +1,73 @@
-var models = require('./models');
-var BlogEntry = models.BlogEntry;
+var models = require('./models'),
+    login_required = require('../useful/actions/decorators').login_required,
+    BlogEntry = models.BlogEntry,
 
-var index = function(req, res) {
-    if (req.user) {
+    index = function(req, res) {
         BlogEntry.find({userId: req.user._id}, function (err, docs) {
             res.render('blog/list', {
                'docs': docs
             });
         });
-    } else {
-        res.redirect('/login');
-    }
-};
+    },
 
-var show = function(req, res) {
-    BlogEntry.findById(req.params.id, function (err, doc) {
-        res.render('blog/show', {
-            entry: doc
+    show = function(req, res) {
+        BlogEntry.findById(req.params.id, function (err, doc) {
+            res.render('blog/show', {
+                entry: doc
+            });
         });
-    });
-}
+    },
 
-var new_ = function(req, res) {
-    res.render('blog/new');
-};
+    new_ = function(req, res) {
+        res.render('blog/new');
+    },
 
-var create = function(req, res) {
-    var entry = new BlogEntry(req.body.blog);
+    create = function(req, res) {
+        var entry = new BlogEntry(req.body.blog);
 
-    entry.userId = req.user._id;
-    entry.created = Date.now();
+        entry.userId = req.user._id;
+        entry.created = Date.now();
 
-    entry.save(function (err) {
-        if (!err) {
-            res.redirect('/blog/');
-        } else {
-            req.flash("error", "文章添加失败。");
-            res.redirect('/blog/new');
-        }
-    });
-};
-
-var edit = function(req, res) {
-    BlogEntry.findById(req.params.id, function (err, doc) {
-        res.render('blog/edit', {
-            blog: doc
+        entry.save(function (err) {
+            if (!err) {
+                res.redirect('/blog/');
+            } else {
+                req.flash("error", "文章添加失败。");
+                res.redirect('/blog/new');
+            }
         });
-    });
-};
+    },
 
-var update = function(req, res) {
-    BlogEntry.findByIdAndUpdate(req.params.id, 
-                                {$set: { title: req.body.blog.title,
-                                        body: req.body.blog.body
-                                }}, 
-                                function (err, blogEntry) {
-                                    if (!err) {
-                                        res.redirect('/blog/');
-                                    } else {
+    edit = function(req, res) {
+        BlogEntry.findById(req.params.id, function (err, doc) {
+            res.render('blog/edit', {
+                blog: doc
+            });
+        });
+    },
 
-                                    }
-                                });
-};
+    update = function(req, res) {
+        BlogEntry.findByIdAndUpdate(
+            req.params.id, 
+            {$set: { title: req.body.blog.title,
+                     body: req.body.blog.body
+            }}, 
+            function (err, blogEntry) {
+                if (!err) {
+                    res.redirect('/blog/');
+                } else {
 
-var blog_actions = {
-    'update': update,
-    'new_': new_,
-    'index': index,
-    'edit': edit,
-    'create': create,
-    'show': show
-};
+                }
+            });
+    },
+
+    blog_actions = {
+        'update':   login_required(update),
+        'new_':     login_required(new_),
+        'index':    login_required(index),
+        'edit':     login_required(edit),
+        'create':   login_required(create),
+        'show':     show
+    };
 
 module.exports = blog_actions;

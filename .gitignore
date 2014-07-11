@@ -5,4 +5,4 @@ node_modules
 *.sln
 obj/
 .sass-cache
-
+bower_components/

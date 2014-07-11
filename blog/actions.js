@@ -11,7 +11,6 @@ var index = function(req, res) {
     } else {
         res.redirect('/login');
     }
-    
 };
 
 var show = function(req, res) {

@@ -4,7 +4,8 @@ html
 		meta(charset='utf-8')
 		title
 			block title
-		link(rel='stylesheet', href='/blogstrap/css/styles.css')
+		link(rel='stylesheet', href='/css/bootstrap.css')
+		script(data-main='/config.js', src='/require.js')
 	body
 		nav.navbar.navbar-default.navbar-static-top(role="navigation")
 			div.container
@@ -33,5 +34,4 @@ html
 					- each e in msgs.error
 						p= e
 			block content
-		script(src='/jquery.js')
-		script(src='/bootstrap.js')
+		

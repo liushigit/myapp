@@ -1,16 +1,16 @@
-var mongoose = require('../db')
-var Schema = mongoose.Schema;
-// var ObjectId = Schema.ObjectId;
+var mongoose = require('../db'),
+	Schema = mongoose.Schema,
 
-var BlogEntrySchema = Schema({
+
+	BlogEntrySchema = Schema({
     title: String, 
     body: String,
     created: Date,
-    updated: { type: Date, default: Date.now },
+    updated: { type: Date, 'default': Date.now },
     userId: Schema.Types.ObjectId
-});
+}),
 
-var BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);
+	BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);
 
 module.exports = {}
 module.exports.BlogEntry = BlogEntry;

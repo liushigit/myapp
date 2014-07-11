@@ -54,14 +54,28 @@ app.set('view engine', 'jade');
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(require('method-override')());
+app.use(bodyParser.urlencoded({ extended: true })); // functionality provided by npm/qs
+
+// See https://github.com/expressjs/method-override
+var methodOveride = require('method-override');
+app.use(methodOveride('_method'));
+app.use(methodOveride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}));
+
+
 app.use(cookieParser());
 
 var sessionStore = new session.MemoryStore();
 
 app.use(session({ secret: 'Simple Example',
-                  key: 'sid',
+                  resave: true,
+                  saveUninitialized: false,
                   cookie: { secure: false },
                   store: sessionStore
                 }));
@@ -69,8 +83,6 @@ app.use(session({ secret: 'Simple Example',
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
     res.locals.user = req.user;
@@ -81,6 +93,11 @@ app.use(function (req, res, next) {
 
 app.use('/', blog_routes);
 app.use('/', account_routes);
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
+app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
+
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

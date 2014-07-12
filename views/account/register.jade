@@ -5,6 +5,7 @@ block title
 
 block content
   form(role='form', action="/register", method="post")
+    !{csrf_field}
     fieldset
       legend 注册
       div.form-group

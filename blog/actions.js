@@ -4,7 +4,12 @@ var models = require('./models'),
     BlogEntry = models.BlogEntry,
 
     index = function (req, res) {
-        BlogEntry.find({userId: req.user._id}, function (err, docs) {
+        BlogEntry.find(
+            {
+                userId: req.user._id, 
+                trashed: false
+            }
+          , function (err, docs) {
             res.render('blog/list', {
                 'docs': docs
             });
@@ -19,6 +24,8 @@ var models = require('./models'),
             function (err, doc) {
                 if (err) {
                     console.log(err);
+                    res.send(400, 'Something wrong.');
+                    return;
                 }
                 res.render('blog/show', {
                     entry: doc
@@ -68,15 +75,16 @@ var models = require('./models'),
             {
                 _id: req.params.id,
                 userId: req.user._id
-            },
-            {$set:  { 
+            }
+          , {$set:  { 
                         title: req.body.blog.title,
                         body: req.body.blog.body
                     }
-            },
-            function (err, blogEntry) {
+            }
+          , function (err, blogEntry) {
                 if (err) {
-                    res.send(400, 'oops.');
+                    console.log('::blog update error')
+                    res.send(404, 'oops.');
                 } else {
                     res.redirect('/blog/');
                 }
@@ -85,7 +93,24 @@ var models = require('./models'),
     },
 
     trash = function (req, res) {
+        BlogEntry.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                userId: req.user._id
+            }
+          , {
+                $set: {trashed: true }
+            }
+          , function (err, doc) {
+                if (err) {
+                    console.log('::blog trash error');
+                    // handle error
 
+                } else {
+                    res.redirect('/blog/');
+                }
+            }
+        );
     },
 
     blog_actions = {

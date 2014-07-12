@@ -9,11 +9,18 @@ block content
 			tr
 				th Blog
 				th
+				th
 			each b in docs
 				tr
 					td
 						a(href="/blog/#{b.id}") #{b.title}
 					td
-						a(href="/blog/#{b.id}/edit/") Edit
+						a(href="/blog/#{b.id}/edit") Edit
+					td
+						form(action="/blog/#{b.id}", method="post")
+							input(type="hidden", name="_method", value="DELETE")
+							!{csrf_field}
+							button.btn.btn-danger.btn-sm(type="submit")
+								span.glyphicon.glyphicon-trash
 	-else
 		p You don't have any blogs!

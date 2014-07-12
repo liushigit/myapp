@@ -1,6 +1,7 @@
 "use strict";
 
 var express = require('express'),
+    csrf = require('csurf'),
     path = require('path'),
     favicon = require('static-favicon'),
     logger = require('morgan'),
@@ -78,11 +79,17 @@ app.use(session({ secret: 'Simple Example',
                   store: sessionStore
                 }));
 
+app.use(csrf());
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function (req, res, next) {
+    console.log(res.locals);
+    res.locals.csrf_field = 
+        '<input type="hidden" name="_csrf" value="' + 
+        req.csrfToken() + '">';
     res.locals.user = req.user;
     res.locals.msgs = req.flash();
     next();

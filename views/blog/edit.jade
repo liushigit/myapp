@@ -5,6 +5,7 @@ block title
 
 block content
 	form(role='form', method="post", action="/blog/" + blog.id)
+		!{csrf_field}
 		input(name="_method", value='PUT', type="hidden")
 		fieldset
 			legend 编辑

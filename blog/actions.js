@@ -12,11 +12,19 @@ var models = require('./models'),
     },
 
     show = function (req, res) {
-        BlogEntry.findById(req.params.id, function (err, doc) {
-            res.render('blog/show', {
-                entry: doc
-            });
-        });
+        BlogEntry.findByIdAndUpdate(req.params.id, 
+            {
+                $inc: {'meta.exposures': 1}
+            },
+            function (err, doc) {
+                if (err) {
+                    console.log(err);
+                }
+                res.render('blog/show', {
+                    entry: doc
+                });
+            }
+        );
     },
 
     new_ = function (req, res) {
@@ -49,15 +57,15 @@ var models = require('./models'),
                 });
             } else {
                 res.send(403, "403 Forbidden:"+
-                              " the server can be reached and understood"+
-                              " the request, but refuses to take any further action.");
+                         " the server can be reached and understood"+
+                         " the request, but refuses to take any further action.");
             }
         });
     },
 
     update = function (req, res) {
         BlogEntry.findOneAndUpdate(
-            { 
+            {
                 _id: req.params.id,
                 userId: req.user._id
             },

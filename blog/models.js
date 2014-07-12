@@ -24,7 +24,13 @@ var mongoose = require('../db'),
             type: [String], 
             index: 'hashed'
         },
-        trashed: Boolean
+        trashed: Boolean,
+        meta: {
+            exposures: {
+                type: Number,
+                'default': 0
+            }
+        }
 
     }, { autoIndex: false }),
 

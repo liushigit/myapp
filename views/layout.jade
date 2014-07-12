@@ -22,6 +22,11 @@ html
 					-if(user)
 						li
 							a #{user.username}
+						li
+							a(href="/logout") 注销
+					-else
+						li
+							a(href="/login") 登录
 		div.container
 			-if(msgs)
 				-if(msgs.success)

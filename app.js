@@ -86,7 +86,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(function (req, res, next) {
-    console.log(res.locals);
     res.locals.csrf_field = 
         '<input type="hidden" name="_csrf" value="' + 
         req.csrfToken() + '">';

@@ -3,6 +3,19 @@ var models = require('./models'),
     login_required = require('../useful/actions/decorators').login_required,
     BlogEntry = models.BlogEntry,
 
+    error_handler = function (code, req, res) {
+        switch (code) {
+            case 404: 
+                res.send(404, 'Not found.');
+                break;
+            case 403:
+                res.send(403, "403 Forbidden:"+
+                         " the server can be reached and understood"+
+                         " the request, but refuses to take any further action.");
+                break;
+        }
+    },
+
     index = function (req, res) {
         BlogEntry.find(
             {
@@ -23,9 +36,7 @@ var models = require('./models'),
             },
             function (err, doc) {
                 if (err) {
-                    console.log(err);
-                    res.send(400, 'Something wrong.');
-                    return;
+                    return error_handler(404, req, res);
                 }
                 res.render('blog/show', {
                     entry: doc
@@ -57,15 +68,13 @@ var models = require('./models'),
     edit = function (req, res) {
         BlogEntry.findById(req.params.id, function (err, doc) {
             if (err) {
-                res.send(404, 'No article found.')
+                error_handler(404, req, res);
             } else if (doc.userId.equals(req.user._id)) {
                 res.render('blog/edit', {
                     blog: doc
                 });
             } else {
-                res.send(403, "403 Forbidden:"+
-                         " the server can be reached and understood"+
-                         " the request, but refuses to take any further action.");
+                error_handler(403, req, res);
             }
         });
     },
@@ -84,7 +93,7 @@ var models = require('./models'),
           , function (err, blogEntry) {
                 if (err) {
                     console.log('::blog update error')
-                    res.send(404, 'oops.');
+                    error_handler(403, req, res);
                 } else {
                     res.redirect('/blog/');
                 }
@@ -104,8 +113,7 @@ var models = require('./models'),
           , function (err, doc) {
                 if (err) {
                     console.log('::blog trash error');
-                    // handle error
-
+                    error_handler(403, req, res);
                 } else {
                     res.redirect('/blog/');
                 }

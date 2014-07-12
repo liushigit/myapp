@@ -28,7 +28,7 @@ router.post('/login', function (req, res, next) {
             req.flash('error', '用户名或密码错误。');
             return res.redirect('/login');
         }
-        req.logIn(user, function (err) {
+        req.login(user, function (err) {
             if (err) {
                 return next(err);
             }
@@ -40,6 +40,11 @@ router.post('/login', function (req, res, next) {
 
 router.get('/register', function (req, res) {
     res.render('account/register');
+});
+
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
 });
 
 router.post('/register', function (req, res) {

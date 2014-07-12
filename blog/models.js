@@ -1,17 +1,35 @@
+"use strict";
+
 var mongoose = require('../db'),
     Schema = mongoose.Schema,
 
 
     BlogEntrySchema = Schema({
-        title: String, 
+        title: String,
         body: String,
-        created: Date,
-        updated: { type: Date, 'default': Date.now },
-        userId: Schema.Types.ObjectId
-    }),
+        created: { 
+            type: Date,
+            index: 1
+        },
+        updated: { 
+            type: Date,
+            'default': Date.now,
+            index: 1
+        },
+        userId: {
+            type: Schema.Types.ObjectId, 
+            index: 'hashed'
+        },
+        tags: {
+            type: [String], 
+            index: 'hashed'
+        },
+        trashed: Boolean
+
+    }, { autoIndex: false }),
 
     BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);
 
 module.exports = {
     BlogEntry: BlogEntry
-}
+};

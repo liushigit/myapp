@@ -4,11 +4,14 @@ var mongoose = require('../db'),
     Schema = mongoose.Schema,
 
     UserSchema = new Schema({
-        username: {type: String,
-                   unique: true,
-                   required: true,
-                   trim: true,
-                   match: /[\w\d]{6,20}/
+        username: { 
+            type: String,
+            index: {
+                unique: true
+            },
+            required: true,
+            trim: true,
+            match: /[\w\d]{6,20}/
         },
         password: {
             type: String,

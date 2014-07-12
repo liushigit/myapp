@@ -54,6 +54,7 @@ var models = require('./models'),
 
         entry.userId = req.user._id;
         entry.created = Date.now();
+        entry.trashed = false;
 
         entry.save(function (err) {
             if (!err) {

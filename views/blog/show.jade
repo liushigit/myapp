@@ -2,6 +2,9 @@ extends ../layout
 
 block content
   h1 #{entry.title}
-  p #{entry.created} 阅读次数：#{entry.meta.exposures}
+  p
+    阅读次数#{entry.meta.exposures} &nbsp;
+    |最近更新于 
+    time(datetime="#{entry.updated.toISOString()}")
   p #{entry.body}
   a(href="/blog/") 返回

@@ -101,7 +101,7 @@ app.use('/', account_routes);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
 app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
-
+app.use(express.static(path.join(__dirname, 'bower_components/moment/min/')));
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

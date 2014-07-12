@@ -5,14 +5,17 @@ require.config({
   },
   paths: {
     bootstrap: "js/bootstrap.min",
-    jquery: "jquery.min"
+    jquery: "jquery.min",
+    moment: "moment.min"
   },
   packages: [
 
   ]
 });
 
-requirejs(['jquery', 'bootstrap'],
-function   ($, bootstrap) {
-    
+requirejs(['jquery', 'bootstrap', 'moment'],
+function   ($, bootstrap, moment) {
+    $('time').each(function (index, el) {
+    	el.innerHTML = moment(el.getAttribute('datetime')).fromNow();
+    });
 });

@@ -5,26 +5,44 @@ var mongoose = require('../db'),
 
 
     BlogEntrySchema = Schema({
-        title: String,
-        body: String,
+        title: {
+            type: String
+           ,required: true
+        },
+        body: {
+            type: String
+           ,required: true
+        },
         created: { 
-            type: Date,
-            index: 1
+            type: Date
+           ,index: -1
+           ,required: true
         },
         updated: { 
             type: Date,
+            required: true,
             'default': Date.now,
-            index: 1
+            index: -1
         },
         userId: {
             type: Schema.Types.ObjectId, 
-            index: 'hashed'
+            index: 'hashed',
+            required: true
         },
         tags: {
             type: [String], 
             index: 'hashed'
         },
-        trashed: Boolean,
+        trashed: {
+            type: Boolean,
+            required: true,
+            'default': false
+        },
+        published: {
+            type: Boolean,
+            required: true,
+            'default': false
+        },
         meta: {
             exposures: {
                 type: Number,

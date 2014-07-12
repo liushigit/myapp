@@ -21,12 +21,15 @@ var models = require('./models'),
             {
                 userId: req.user._id, 
                 trashed: false
+        })
+        .sort({'updated': 'descending'})
+        .exec(  
+            function (err, docs) {
+                res.render('blog/list', {
+                    'docs': docs
+                });
             }
-          , function (err, docs) {
-            res.render('blog/list', {
-                'docs': docs
-            });
-        });
+        );
     },
 
     show = function (req, res) {
@@ -54,6 +57,7 @@ var models = require('./models'),
 
         entry.userId = req.user._id;
         entry.created = Date.now();
+        entry.updated = Date.now();
         entry.trashed = false;
 
         entry.save(function (err) {
@@ -88,7 +92,8 @@ var models = require('./models'),
             }
           , {$set:  { 
                         title: req.body.blog.title,
-                        body: req.body.blog.body
+                        body: req.body.blog.body,
+                        updated: Date.now()
                     }
             }
           , function (err, blogEntry) {

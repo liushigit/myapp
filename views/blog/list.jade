@@ -8,12 +8,15 @@ block content
 		table.table
 			tr
 				th Blog
+				th 最近更新时间
 				th
 				th
 			each b in docs
 				tr
 					td
 						a(href="/blog/#{b.id}") #{b.title}
+					td
+						time(datetime="#{b.updated.toISOString()}")
 					td
 						a(href="/blog/#{b.id}/edit") Edit
 					td

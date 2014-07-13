@@ -17,16 +17,35 @@ var models = require('./models'),
     },
 
     index = function (req, res) {
-        BlogEntry.find(
-            {
-                userId: req.user._id, 
-                trashed: false
-        })
+
+        var paginated_by = 10,
+            page = req.param('page') > 0 ? req.param('page') : 1,
+            conditions = {
+                userId: req.user._id
+              , trashed: false
+            };
+
+        BlogEntry
+        .find(conditions)
+        .skip(paginated_by * (page - 1))
+        .limit(paginated_by)
         .sort({'updated': 'descending'})
         .exec(  
             function (err, docs) {
-                res.render('blog/list', {
-                    'docs': docs
+                BlogEntry.count(conditions , function (err, count) {
+                    if (err) {
+                        return;
+                    }
+                    console.log('index', count)
+                    var paginator = require('../useful/template/helpers').paginator
+                      , createPagination = paginator(req);
+
+                    res.render('blog/list', {
+                        'docs': docs
+                      , 'page': page
+                      , 'pages': count / paginated_by
+                      , 'createPagination': createPagination
+                    });
                 });
             }
         );
@@ -56,8 +75,7 @@ var models = require('./models'),
         var entry = new BlogEntry(req.body.blog);
 
         entry.userId = req.user._id;
-        entry.created = Date.now();
-        entry.updated = Date.now();
+        entry.created = entry.updated = Date.now();
         entry.trashed = false;
 
         entry.save(function (err) {

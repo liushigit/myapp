@@ -7,7 +7,7 @@ block content
 	-if(docs.length)
 		table.table
 			tr
-				th Blog
+				th 标题
 				th 最近更新时间
 				th
 				th
@@ -16,14 +16,17 @@ block content
 					td
 						a(href="/blog/#{b.id}") #{b.title}
 					td
-						time(datetime="#{b.updated.toISOString()}")
+						time.text-muted(datetime="#{b.updated.toISOString()}")
 					td
 						a(href="/blog/#{b.id}/edit") Edit
 					td
 						form(action="/blog/#{b.id}", method="post")
+							|!{ csrf_field }
 							input(type="hidden", name="_method", value="DELETE")
-							!{csrf_field}
 							button.btn.btn-danger.btn-sm(type="submit")
 								span.glyphicon.glyphicon-trash
+		if (pages > 1)
+			ul.pagination
+				!= createPagination(pages, page)
 	-else
 		p You don't have any blogs!

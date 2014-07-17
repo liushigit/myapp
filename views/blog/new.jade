@@ -7,17 +7,7 @@ block content
     .col-xs-8
         form#blog_post_form(method='post', action='/blog/', role='form')
             != csrf_field
-            include ./blog_entry_form_snip.jade
+            include ./include/blog_form.jade
             input.btn.btn-success(type='submit', value='Save')
     .col-xs-4
-        label(for='tags') 标签
-        .form-inline
-            .form-group
-                input#tags.form-control
-            button#add_tags_btn.btn.btn-default 添加
-        br
-        div#tags_box
-
-            
-        
-
+        include ./include/tag_fields.jade

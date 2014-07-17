@@ -1,0 +1,11 @@
+label(for='tags') 标签
+    .form-inline
+        .form-group
+            input#tags.form-control(style="margin-right: 3px")
+        button#add_tags_btn.btn.btn-default 添加
+    br
+    div#tags_box
+      if blog && blog.tags
+        each t in blog.tags
+          span.label.label-info= t+' '
+            button(type="button") &times;

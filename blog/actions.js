@@ -16,7 +16,31 @@ var models = require('./models'),
         }
     },
 
+    list_posts_with_tag = function (req, res) {
+        var tag = req.param('tag');
+        BlogEntry.find(
+            {
+                'tags': tag
+              , 'userId': req.user._id
+
+            }
+
+          , function (err, docs) {
+                if (err) {
+                    console.log('Error in list_posts_with_tag')
+                    return;
+                }
+                res.render('blog/list', {
+                    docs: docs
+                });
+            }
+        );
+    },
+
     index = function (req, res) {
+        if (req.param('tag')) {
+            return list_posts_with_tag(req, res);
+        }
 
         var paginated_by = 10,
             page = req.param('page') > 0 ? req.param('page') : 1,
@@ -108,11 +132,13 @@ var models = require('./models'),
                 _id: req.params.id,
                 userId: req.user._id
             }
-          , {$set:  { 
-                        title: req.body.blog.title,
-                        body: req.body.blog.body,
-                        updated: Date.now()
-                    }
+          , {$set:  
+                {
+                    title: req.body.blog.title,
+                    body: req.body.blog.body,
+                    tags: req.body.blog.tags,
+                    updated: Date.now()
+                }
             }
           , function (err, blogEntry) {
                 if (err) {

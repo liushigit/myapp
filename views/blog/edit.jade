@@ -4,18 +4,25 @@ block title
 	| 编辑文章
 
 block content
-	form(role='form', method="post", action="/blog/" + blog.id)
-		!= csrf_field
-		input(name="_method", value='PUT', type="hidden")
-		fieldset
-			legend 编辑
-			div.form-group
-				label(for='title') 标题
-				input#title.form-control(name='blog[title]', value="#{blog.title}")
-			div.form-group
-				label(for='body') 正文
-				textarea#body.form-control(name='blog[body]') #{blog.body}
+	.col-sm-8
+		form(role='form', method="post", action="/blog/" + blog.id)
+			!= csrf_field
+			input(name="_method", value='PUT', type="hidden")
+			fieldset
+				legend 编辑
+				div.form-group
+					label(for='title') 标题
+					input#title.form-control(name='blog[title]', value="#{blog.title}")
+				div.form-group
+					label(for='body') 正文
+					textarea#body.form-control(name='blog[body]') #{blog.body}
+				if blog.tags
+					each t in blog.tags
+						input(type='hidden', name='blog[tags]', value=t)
 
-		a.btn.btn-default(href="/blog/") 取消
-		| &nbsp;
-		input.btn.btn-success(type='submit', value='Save')
+			a.btn.btn-default(href="/blog/") 取消
+			| &nbsp;
+			input.btn.btn-success(type='submit', value='Save')
+
+	.col-sm-4
+		include ./include/tag_fields.jade

@@ -127,19 +127,15 @@ var models = require('./models'),
     },
 
     update = function (req, res) {
+        var entry = req.body.blog ? req.body.blog : {};
+        entry.updated = Date.now();
+
         BlogEntry.findOneAndUpdate(
             {
                 _id: req.params.id,
                 userId: req.user._id
             }
-          , {$set:  
-                {
-                    title: req.body.blog.title,
-                    body: req.body.blog.body,
-                    tags: req.body.blog.tags,
-                    updated: Date.now()
-                }
-            }
+          , {$set: entry}
           , function (err, blogEntry) {
                 if (err) {
                     console.log('::blog update error')

@@ -8,17 +8,16 @@ block content
 		form(role='form', method="post", action="/blog/" + blog.id)
 			!= csrf_field
 			input(name="_method", value='PUT', type="hidden")
-			fieldset
-				legend 编辑
-				div.form-group
-					label(for='title') 标题
-					input#title.form-control(name='blog[title]', value="#{blog.title}")
-				div.form-group
-					label(for='body') 正文
-					textarea#body.form-control(name='blog[body]') #{blog.body}
-				if blog.tags
-					each t in blog.tags
-						input(type='hidden', name='blog[tags]', value=t)
+
+			div.form-group
+				label(for='title') 标题
+				input#title.form-control(name='blog[title]', value="#{blog.title}")
+			div.form-group
+				label(for='body') 正文
+				textarea#body.form-control(name='blog[body]') #{blog.body}
+			if blog.tags
+				each t in blog.tags
+					input(type='hidden', name='blog[tags]', value=t)
 
 			a.btn.btn-default(href="/blog/") 取消
 			| &nbsp;

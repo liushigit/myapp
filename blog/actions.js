@@ -67,7 +67,7 @@ var models = require('./models'),
         );
     },
 
-    new_ = function (req, res) {
+    neu = function (req, res) {
         res.render('blog/new');
     },
 
@@ -147,7 +147,7 @@ var models = require('./models'),
 
     blog_actions = {
         'update':   login_required(update),
-        'new_':     login_required(new_),
+        'new':     login_required(neu),
         'index':    login_required(index),
         'edit':     login_required(edit),
         'create':   login_required(create),

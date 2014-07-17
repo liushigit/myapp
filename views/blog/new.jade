@@ -1,15 +1,23 @@
 extends ../layout
 
 block title
-	| 添加文章
+    | 添加文章
 
 block content
-	form(method='post', action='/blog/', role='form')
-		div.form-group
-			label(for='title') 标题
-			input.form-control(id='title', name='blog[title]')
-		div.form-group
-			label(for='body') 正文
-			textarea.form-control(id='body', name='blog[body]')
-		!{csrf_field}
-		input.btn.btn-success(type='submit', value='Save')
+    .col-xs-8
+        form#blog_post_form(method='post', action='/blog/', role='form')
+            != csrf_field
+            include ./blog_entry_form_snip.jade
+            input.btn.btn-success(type='submit', value='Save')
+    .col-xs-4
+        label(for='tags') 标签
+        .form-inline
+            .form-group
+                input#tags.form-control
+            button#add_tags_btn.btn.btn-default 添加
+        br
+        div#tags_box
+
+            
+        
+

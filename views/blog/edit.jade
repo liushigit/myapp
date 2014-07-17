@@ -5,7 +5,7 @@ block title
 
 block content
 	form(role='form', method="post", action="/blog/" + blog.id)
-		!{csrf_field}
+		!= csrf_field
 		input(name="_method", value='PUT', type="hidden")
 		fieldset
 			legend 编辑
@@ -17,5 +17,5 @@ block content
 				textarea#body.form-control(name='blog[body]') #{blog.body}
 
 		a.btn.btn-default(href="/blog/") 取消
-		&nbsp;
+		| &nbsp;
 		input.btn.btn-success(type='submit', value='Save')

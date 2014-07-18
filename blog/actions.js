@@ -127,18 +127,34 @@ var models = require('./models'),
     },
 
     update = function (req, res) {
-        var entry = req.body.blog ? req.body.blog : {};
+        var entry = req.body.blog || {},
+            tags_to_remove = req.body.tags && req.body.tags.toRemove,
+            update = {};
+
+        if (typeof entry.tags === 'string') {
+            entry.tags = [entry.tags];
+        }
+        
         entry.updated = Date.now();
+        update.$set = entry;
+
+        if (typeof tags_to_remove === 'string') {
+            tags_to_remove = [tags_to_remove];
+        }
+
+        if (tags_to_remove && !entry.tags) {
+            update.$pullAll = {tags: tags_to_remove };
+        }
 
         BlogEntry.findOneAndUpdate(
             {
                 _id: req.params.id,
                 userId: req.user._id
             }
-          , {$set: entry}
+          , update
           , function (err, blogEntry) {
                 if (err) {
-                    console.log('::blog update error')
+                    console.log('::blog update error', err)
                     error_handler(403, req, res);
                 } else {
                     res.redirect('/blog/');

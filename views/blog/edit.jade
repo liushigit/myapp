@@ -5,7 +5,7 @@ block title
 
 block content
 	.col-sm-8
-		form(role='form', method="post", action="/blog/" + blog.id)
+		form#blog_post_form(role='form', method="post", action="/blog/" + blog.id)
 			!= csrf_field
 			input(name="_method", value='PUT', type="hidden")
 

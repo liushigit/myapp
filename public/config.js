@@ -54,7 +54,7 @@ function ($) {
             added_tags.push(word);
 
             $('<span>').addClass('label label-info')
-                       .html(word+' ')
+                       .html(word)
                        .css('display', 'none')
                        .append('<button type="button">&times;</button>')
                        .appendTo(tag_box_sel)

@@ -14,9 +14,9 @@ block content
           time(datetime="#{entry.updated.toISOString()}")
     a(href="/blog/") 返回
   .col-xs-4
-    .panel.panel-default(style="margin-top:20px")
-      .panel-heading 标签
-      .panel-body
-        each tag in entry.tags
-          a.label.label-info(href="/blog/?tag=#{tag}")= tag
-          | &nbsp;
+    if entry.tags.length
+      .panel.panel-default(style="margin-top:20px")
+        .panel-heading 标签
+        .panel-body
+          each tag in entry.tags
+            a.label.label-info(href="/blog/?tag=#{tag}")= tag

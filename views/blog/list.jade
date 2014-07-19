@@ -23,7 +23,7 @@ block content
 						form(action="/blog/#{b.id}", method="post")
 							|!{ csrf_field }
 							input(type="hidden", name="_method", value="DELETE")
-							button.btn.btn-danger.btn-sm(type="submit")
+							button.btn.btn-default.btn-sm(type="submit")
 								span.glyphicon.glyphicon-trash
 		if (pages > 1)
 			ul.pagination

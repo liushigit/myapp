@@ -1,7 +1,7 @@
 "use strict";
 require.config({
   shim: {
-
+    "bootstrap": ["jquery"]
   },
   paths: {
     bootstrap: "js/bootstrap.min",

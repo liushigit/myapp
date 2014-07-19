@@ -1,3 +1,6 @@
+mixin rjs(path)
+	script(data-main="#{path}", src="/require.js")
+
 doctype html
 html
 	head
@@ -5,7 +8,8 @@ html
 		title
 			block title
 		link(rel='stylesheet', href='/styles.css')
-		script(data-main='/config.js', src='/require.js')
+		block head_script
+			+rjs("/js/common.js")
 	body
 		nav.navbar.navbar-default.navbar-static-top(role="navigation")
 			div.container

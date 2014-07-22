@@ -6,17 +6,18 @@ block title
 block content
   .col-xs-8
     h1 #{entry.title}
-    p #{entry.body}
+
+    != entry.mdRender
     div.meta
       span.text-muted 阅读次数#{entry.meta.exposures}
           |&nbsp;
       span.text-muted 更新于 
           time(datetime="#{entry.updated.toISOString()}")
-    a(href="/blog/") 返回
+    a(href="/u/#{entry.username}/blog/") 返回
   .col-xs-4
     if entry.tags.length
       .panel.panel-default(style="margin-top:20px")
         .panel-heading 标签
         .panel-body
           each tag in entry.tags
-            a.label.label-info(href="/blog/?tag=#{tag}")= tag
+            a.label.label-info(href="/u/#{entry.username}/blog/?tag=#{tag}")= tag

@@ -8,13 +8,13 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'Express' });
 });
 
-router.get('/blog/', blog.index);
-router.post('/blog/', blog.create );
 router.get('/blog/new', blog.new);
-router.get('/blog/:id/edit', blog.edit);
-router.put('/blog/:id', blog.update);
-router.get('/blog/:id', blog.show);
-router.delete('/blog/:id', blog.trash);
+router.get('/u/:user/blog/', blog.index);
+router.post('/u/:user/blog/', blog.create );
+router.get('/u/:user/blog/:id/edit', blog.edit);
+router.put('/u/:user/blog/:id', blog.update);
+router.get('/u/:user/blog/:id', blog.show);
+router.delete('/u/:user/blog/:id', blog.trash);
 
 
 module.exports = router;

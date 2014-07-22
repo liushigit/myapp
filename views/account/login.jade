@@ -15,5 +15,5 @@ block content
 				div.form-group
 					label(for="password") 密码
 					input.form-control(id='password', type="password", name="pw")
-				!{csrf_field}
+				|!{csrf_field}
 				input.btn.btn-default(type="submit", value="Log in")

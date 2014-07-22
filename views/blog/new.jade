@@ -8,7 +8,7 @@ block title
 
 block content
     .col-xs-8
-        form#blog_post_form(method='post', action='/blog/', role='form')
+        form#blog_post_form(method='post', action='/u/#{user.username}/blog/', role='form')
             != csrf_field
             include ./include/blog_form.jade
             input.btn.btn-success(type='submit', value='Save')

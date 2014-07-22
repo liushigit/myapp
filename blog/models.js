@@ -1,10 +1,11 @@
 "use strict";
 
-var mongoose = require('../db'),
-    Schema = mongoose.Schema,
+var mongoose = require('../db')
+  , Schema = mongoose.Schema
+  , markdown = require('markdown').markdown
 
 
-    BlogEntrySchema = Schema({
+  , BlogEntrySchema = Schema({
         title: {
             type: String
            ,required: true
@@ -23,6 +24,11 @@ var mongoose = require('../db'),
             required: true,
             'default': Date.now,
             index: -1
+        },
+        username: {
+            type: String,
+            required: true,
+            index: 1
         },
         userId: {
             type: Schema.Types.ObjectId, 
@@ -50,9 +56,13 @@ var mongoose = require('../db'),
             }
         }
 
-    }, { autoIndex: false }),
+    }, { autoIndex: false });
 
-    BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);
+BlogEntrySchema.virtual('mdRender').get(function () {
+    return markdown.toHTML(this.body);
+});
+
+var BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);
 
 module.exports = {
     BlogEntry: BlogEntry

@@ -33,7 +33,7 @@ router.post('/login', function (req, res, next) {
                 return next(err);
             }
             req.flash('success', '欢迎回来！');
-            return res.redirect('/blog/');
+            return res.redirect('/u/'+ user.username +'/blog/');
         });
     })(req, res, next);
 });

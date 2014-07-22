@@ -29,7 +29,7 @@ requirejs(['./common'], function (config) {
             word = word.trim() //word.replace(/^\s+|\s+$/g, '')
             console.log(added_tags)
             if (added_tags.indexOf(word) === -1 && word !=='') {
-              console.log('added: ', word)
+              // console.log('added: ', word)
               added_tags.push(word);
 
               $('<span>').addClass('label label-info')
@@ -50,6 +50,7 @@ requirejs(['./common'], function (config) {
             }
           }
         }
+      
       , del_tags = function (e) {
           var $button = $(e.target),
               $parent = $button.parent(),
@@ -57,19 +58,15 @@ requirejs(['./common'], function (config) {
               $tag_inputs = $('input[value="' + tag_word +'"]')
                             .filter('input[name="blog[tags]"]'),
               $new_tag_inputs = $tag_inputs.filter('input[data-new]');
-
-          console.log(tag_word, $tag_inputs.length, $new_tag_inputs.length);
           
-          // <input name=tags[toRemove] type=hide value="xxx"/>
           $tag_inputs.remove();
           if (! $new_tag_inputs.length) {
             $('<input name=tags[toRemove] type=hidden value="' + tag_word +'"/>')
             .appendTo(form_sel);
           }
-          $parent.fadeOut(400, function () {
+          $parent.fadeOut(800, function () {
             $(this).remove();
           });
-
         }
 
     $(document).ready(set_added_tags);

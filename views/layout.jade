@@ -14,14 +14,16 @@ html
 		nav.navbar.navbar-default.navbar-static-top(role="navigation")
 			div.container
 				ul.nav.navbar-nav
-					li.dropdown
-						a.dropdown-toggle(data-toggle='dropdown') Blog
-							span.caret
-						ul.dropdown-menu(role='menu')
-							li
-								a(href="/blog/") 我的博客
-							li
-								a(href="/blog/new") 添加文章
+					if(user)
+						li.dropdown
+							a.dropdown-toggle(data-toggle='dropdown') Blog
+								span.caret
+							ul.dropdown-menu(role='menu')
+								
+								li
+									a(href="/u/#{user.username}/blog/") 我的博客
+								li
+									a(href="/blog/new") 添加文章
 				ul.nav.navbar-nav.navbar-right
 					-if(user)
 						li

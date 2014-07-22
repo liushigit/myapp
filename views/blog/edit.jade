@@ -8,7 +8,7 @@ block title
 
 block content
 	.col-sm-8
-		form#blog_post_form(role='form', method="post", action="/blog/" + blog.id)
+		form#blog_post_form(role='form', method="post", action="/u/#{blog.username}/blog/#{blog.id}")
 			!= csrf_field
 			input(name="_method", value='PUT', type="hidden")
 
@@ -17,7 +17,7 @@ block content
 				input#title.form-control(name='blog[title]', value="#{blog.title}")
 			div.form-group
 				label(for='body') 正文
-				textarea#body.form-control(name='blog[body]') #{blog.body}
+				textarea#body.form-control(name='blog[body]', rows=20) #{blog.body}
 			if blog.tags
 				each t in blog.tags
 					input(type='hidden', name='blog[tags]', value=t)

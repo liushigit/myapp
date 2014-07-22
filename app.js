@@ -50,15 +50,21 @@ passport.deserializeUser(function (id, done) {
 // app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
+app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
+app.use(express.static(path.join(__dirname, 'bower_components/moment/min/')));
+
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // functionality provided by npm/qs
 
+
 // See https://github.com/expressjs/method-override
 var methodOveride = require('method-override');
 app.use(methodOveride('_method'));
-app.use(methodOveride(function(req, res){
+app.use(methodOveride(function (req, res) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
     var method = req.body._method
@@ -72,19 +78,34 @@ app.use(cookieParser());
 
 var sessionStore = new session.MemoryStore();
 
-app.use(session({ secret: 'Simple Example',
-                  resave: true,
-                  saveUninitialized: false,
-                  cookie: { secure: false },
-                  store: sessionStore
-                }));
+app.use(session(
+        { secret: 'Simple Example',
+          resave: true,
+          saveUninitialized: false,
+          cookie: { secure: false },
+          store: sessionStore
+        }
+    )
+);
 
 app.use(csrf());
-
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.param('user', function (req, res, next, id) {
+    console.log('hihi');
+    console.log(id);
+    next();
+});
+
+app.use(function (req, res, next) {
+    console.log('hie')
+    next();
+});
+
+// some locals in templates
 app.use(function (req, res, next) {
     res.locals.csrf_field = 
         '<input type="hidden" name="_csrf" value="' + 
@@ -98,10 +119,6 @@ app.use(function (req, res, next) {
 app.use('/', blog_routes);
 app.use('/', account_routes);
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
-app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
-app.use(express.static(path.join(__dirname, 'bower_components/moment/min/')));
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

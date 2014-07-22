@@ -8,15 +8,13 @@ block content
 		table.table
 			tr
 				th 标题
+				th
+				th
 				th 最近更新时间
-				th
-				th
 			each b in docs
 				tr
 					td
 						a(href="/u/#{b.username}/blog/#{b.id}") #{b.title}
-					td
-						time.text-muted(datetime="#{b.updated.toISOString()}")
 					td
 						a(href="/u/#{b.username}/blog/#{b.id}/edit") Edit
 					td
@@ -25,6 +23,8 @@ block content
 							input(type="hidden", name="_method", value="DELETE")
 							button.btn.btn-default.btn-sm(type="submit")
 								span.glyphicon.glyphicon-trash
+					td
+						time.text-muted(datetime="#{b.updated.toISOString()}")
 		if (pages > 1)
 			ul.pagination
 				!= createPagination(pages, page)

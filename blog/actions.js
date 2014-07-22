@@ -89,7 +89,7 @@ var models = require('./models'),
                 $inc: {'meta.exposures': 1}
             },
             function (err, doc) {
-                if (err) {
+                if (err || !doc) {
                     return next(err);
                 }
                 res.render('blog/show', {

@@ -94,17 +94,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.param('user', function (req, res, next, id) {
-    console.log('hihi');
-    console.log(id);
-    next();
-});
-
-app.use(function (req, res, next) {
-    console.log('hie')
-    next();
-});
-
 // some locals in templates
 app.use(function (req, res, next) {
     res.locals.csrf_field = 

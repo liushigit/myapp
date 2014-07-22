@@ -22,7 +22,7 @@ block content
 				each t in blog.tags
 					input(type='hidden', name='blog[tags]', value=t)
 
-			a.btn.btn-default(href="/blog/") 取消
+			a.btn.btn-default(href="/u/#{user.username}/blog/") 取消
 			| &nbsp;
 			input.btn.btn-success(type='submit', value='Save')
 

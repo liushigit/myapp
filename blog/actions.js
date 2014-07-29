@@ -18,6 +18,7 @@ var models = require('./models'),
 
     list_posts_with_tag = function (req, res, next) {
         var tag = req.param('tag');
+        // console.log(tag)
         BlogEntry.find(
             {
                 'tags': tag

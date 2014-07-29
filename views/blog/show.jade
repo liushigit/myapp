@@ -20,4 +20,4 @@ block content
         .panel-heading 标签
         .panel-body
           each tag in entry.tags
-            a.label.label-info(href="/u/#{entry.username}/blog/?tag=#{tag}")= tag
+            a.label.label-info(href="/u/#{entry.username}/blog/?tag=#{tag.replace(/\+/g,'%2B')}")= tag

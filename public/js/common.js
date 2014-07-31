@@ -1,12 +1,14 @@
 "use strict";
 require.config({
   shim: {
-    "bootstrap": ["jquery"]
+    "bootstrap": ["jquery"],
+    "highlight": []
   },
   paths: {
     bootstrap: "bootstrap.min",
     jquery: "../jquery.min",
-    moment: "../moment.min"
+    moment: "../moment.min",
+    highlight: "lib/hlt"
   },
   packages: [
 

@@ -1,0 +1,15 @@
+extends ../layout
+
+
+block content
+	table.table
+		thead
+			tr
+				th 标签
+				th 篇数
+		tbody
+			each tag in tags
+				tr
+					td
+						a(href="/u/#{author}/blog/?tag=#{tag._id.replace(/\+/g,'%2B')}") #{tag._id}
+					td #{tag.count}

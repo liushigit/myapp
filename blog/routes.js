@@ -15,6 +15,8 @@ router.get('/u/:user/blog/:id/edit', blog.edit);
 router.put('/u/:user/blog/:id', blog.update);
 router.get('/u/:user/blog/:id', blog.show);
 router.delete('/u/:user/blog/:id', blog.trash);
+router.get('/u/:user/tags/', blog.userTags);
+
 
 
 module.exports = router;

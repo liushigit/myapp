@@ -199,6 +199,34 @@ var models = require('./models'),
         );
     },
 
+    user_tag_counts = function (req, res, next) {
+        var username = req.params.user;
+
+        BlogEntry.aggregate([
+            { $match: { username: username }},
+            { $project: { tags:'$tags' }},
+            { "$unwind": '$tags' },
+            { $group: { _id: '$tags', count: { $sum: 1 }}},
+            { $sort: { count: -1, _id: 1 }}
+        ]).exec(function (err, docs) {
+            console.log(docs);
+            if(err) {
+                return next(err);
+            }
+            res.format({
+                'text/html': function () {
+                    res.render('blog/tags', {
+                        tags: docs,
+                        author: username
+                    })
+                },
+                'application/json': function () {
+                    res.send(docs);
+                }
+            });
+        })
+    },
+
     blog_actions = {
         'update':   login_required(update),
         'new':      login_required(neu),
@@ -206,7 +234,8 @@ var models = require('./models'),
         'edit':     login_required(edit),
         'create':   login_required(create),
         'trash':    login_required(trash), 
-        'show':     show
+        'show':     show,
+        'userTags': user_tag_counts
     };
 
 module.exports = blog_actions;

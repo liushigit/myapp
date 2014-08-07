@@ -7,7 +7,7 @@ block title
 	| 编辑文章
 
 block content
-	.col-sm-8
+	.col-sm-9
 		form#blog_post_form(role='form', method="post", action="/u/#{blog.username}/blog/#{blog.id}")
 			!= csrf_field
 			input(name="_method", value='PUT', type="hidden")
@@ -26,5 +26,5 @@ block content
 			| &nbsp;
 			input.btn.btn-success(type='submit', value='Save')
 
-	.col-sm-4
+	.col-sm-3
 		include ./include/tag_fields.jade

@@ -7,10 +7,10 @@ block title
     | 添加文章
 
 block content
-    .col-xs-8
+    .col-xs-9
         form#blog_post_form(method='post', action='/u/#{user.username}/blog/', role='form')
             != csrf_field
             include ./include/blog_form.jade
             input.btn.btn-success(type='submit', value='Save')
-    .col-xs-4
+    .col-xs-3
         include ./include/tag_fields.jade

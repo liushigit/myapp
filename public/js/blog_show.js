@@ -1,12 +1,10 @@
 "use strict";
 requirejs(['./common'], function (config) {
 
-  requirejs(['jquery', 'highlight'], 
-  function ($, hlt) {
+  requirejs(['jquery', 'rainbow'], 
+  function ($, rainbow) {
     $(document).ready(function() {
-      $('pre code').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
+    	Rainbow.color();
     });
   })
 });

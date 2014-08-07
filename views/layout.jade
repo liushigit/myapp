@@ -46,7 +46,11 @@ html
 							span.sr-only Close
 						span= msgs.success
 				-if(msgs.error)
-					- each e in msgs.error
-						p= e
+					div.alert.alert-danger.alert-dismissible(role='alert')
+						button.close(type='button', data-dismiss='alert')
+							span(aria-hidden='true') &times;
+							span.sr-only Close
+						- each e in msgs.error
+							p= e
 			block content
 		

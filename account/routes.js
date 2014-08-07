@@ -32,7 +32,7 @@ router.post('/login', function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            req.flash('success', '欢迎回来！');
+            // req.flash('success', '欢迎回来！');
             return res.redirect('/u/'+ user.username +'/blog/');
         });
     })(req, res, next);

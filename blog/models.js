@@ -2,7 +2,8 @@
 
 var mongoose = require('../db')
   , Schema = mongoose.Schema
-  , markdown = require('markdown').markdown
+  //, markdown = require('markdown').markdown
+  , marked = require('marked')
 
 
   , BlogEntrySchema = Schema({
@@ -59,7 +60,7 @@ var mongoose = require('../db')
     }, { autoIndex: false });
 
 BlogEntrySchema.virtual('mdRender').get(function () {
-    return markdown.toHTML(this.body);
+    return marked(this.body);
 });
 
 var BlogEntry = mongoose.model('BlogEntry', BlogEntrySchema);

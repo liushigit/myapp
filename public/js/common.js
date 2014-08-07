@@ -2,13 +2,15 @@
 require.config({
   shim: {
     "bootstrap": ["jquery"],
-    "highlight": []
+    "highlight": [],
+    'rainbow': []
   },
   paths: {
     bootstrap: "bootstrap.min",
     jquery: "../jquery.min",
     moment: "../moment.min",
-    highlight: "lib/hlt"
+    highlight: "lib/hlt",
+    rainbow: 'lib/rainbow-custom.min'
   },
   packages: [
 

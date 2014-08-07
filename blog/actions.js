@@ -118,7 +118,11 @@ var models = require('./models'),
                 res.redirect('/u/'+ username + '/blog/');
             } else {
                 req.flash("error", "文章添加失败。");
-                res.redirect('/blog/new');
+                
+                res.render('blog/new', {
+                    blog: req.body.blog,
+                    msgs: req.flash()
+                });
             }
         });
     },
@@ -205,11 +209,11 @@ var models = require('./models'),
         BlogEntry.aggregate([
             { $match: { username: username }},
             { $project: { tags:'$tags' }},
-            { "$unwind": '$tags' },
+            { $unwind: '$tags' },
             { $group: { _id: '$tags', count: { $sum: 1 }}},
             { $sort: { count: -1, _id: 1 }}
         ]).exec(function (err, docs) {
-            console.log(docs);
+            // console.log(docs);
             if(err) {
                 return next(err);
             }

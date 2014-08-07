@@ -78,15 +78,15 @@ app.use(cookieParser());
 
 var sessionStore = new session.MemoryStore();
 
-app.use(session(
-        { secret: 'Simple Example',
-          resave: true,
-          saveUninitialized: false,
-          cookie: { secure: false },
-          store: sessionStore
-        }
-    )
-);
+app.use(session({
+
+    secret: 'Simple Example',
+    resave: true,
+    saveUninitialized: false,
+    cookie: { secure: false },
+    store: sessionStore
+    
+}));
 
 app.use(csrf());
 app.use(flash());

@@ -10,16 +10,15 @@ block content
 				th 标题
 				th
 				th
-				th
 				th 最近更新时间
 			each b in docs
 				tr
 					td
 						a(href="/u/#{b.username}/blog/#{b.id}") #{b.title}
-					td
+						| &nbsp;
 						a.hover(href="/u/#{b.username}/blog/#{b.id}/edit") Edit
 					td
-						form(action="/u/#{b.username}/blog/#{b.id}", method="post")
+						form.form-inline(action="/u/#{b.username}/blog/#{b.id}", method="post")
 							|!{ csrf_field }
 							input(type="hidden", name="_method", value="DELETE")
 							button.hover.btn.btn-default.btn-sm(type="submit")

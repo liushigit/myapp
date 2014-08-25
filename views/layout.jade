@@ -13,44 +13,45 @@ html
 		block head_script
 			+rjs("/js/common.js")
 	body
-		nav.navbar.navbar-default.navbar-static-top(role="navigation")
+		#wrap
+			nav.navbar.navbar-default.navbar-static-top(role="navigation")
+				div.container
+					ul.nav.navbar-nav
+						if(user)
+							li.dropdown
+								a.dropdown-toggle(data-toggle='dropdown') Blog
+									span.caret
+								ul.dropdown-menu(role='menu')
+									
+									li
+										a(href="/u/#{user.username}/blog/") 我的博客
+									li
+										a(href="/blog/new") 添加文章
+							li
+								a(href="/u/#{user.username}/tags/") 我的标签
+					ul.nav.navbar-nav.navbar-right
+						-if(user)
+							li
+								a #{user.username}
+							li
+								a(href="/logout") 注销
+						-else
+							li
+								a(href="/login") 登录
 			div.container
-				ul.nav.navbar-nav
-					if(user)
-						li.dropdown
-							a.dropdown-toggle(data-toggle='dropdown') Blog
-								span.caret
-							ul.dropdown-menu(role='menu')
-								
-								li
-									a(href="/u/#{user.username}/blog/") 我的博客
-								li
-									a(href="/blog/new") 添加文章
-						li
-							a(href="/u/#{user.username}/tags/") 我的标签
-				ul.nav.navbar-nav.navbar-right
-					-if(user)
-						li
-							a #{user.username}
-						li
-							a(href="/logout") 注销
-					-else
-						li
-							a(href="/login") 登录
-		div.container
-			-if(msgs)
-				-if(msgs.success)
-					div.alert.alert-success.alert-dismissible(role='alert')
-						button.close(type='button', data-dismiss='alert')
-							span(aria-hidden='true') &times;
-							span.sr-only Close
-						span= msgs.success
-				-if(msgs.error)
-					div.alert.alert-danger.alert-dismissible(role='alert')
-						button.close(type='button', data-dismiss='alert')
-							span(aria-hidden='true') &times;
-							span.sr-only Close
-						- each e in msgs.error
-							p= e
-			block content
-		
+				-if(msgs)
+					-if(msgs.success)
+						div.alert.alert-success.alert-dismissible(role='alert')
+							button.close(type='button', data-dismiss='alert')
+								span(aria-hidden='true') &times;
+								span.sr-only Close
+							span= msgs.success
+					-if(msgs.error)
+						div.alert.alert-danger.alert-dismissible(role='alert')
+							button.close(type='button', data-dismiss='alert')
+								span(aria-hidden='true') &times;
+								span.sr-only Close
+							- each e in msgs.error
+								p= e
+				block content
+		#footer

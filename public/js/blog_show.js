@@ -2,7 +2,7 @@
 requirejs(['./common'], function (config) {
 
   requirejs(['jquery', 'rainbow'], 
-  function ($, rainbow) {
+  function ($, rb) {
     $(document).ready(function() {
     	Rainbow.color();
     });

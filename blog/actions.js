@@ -232,12 +232,12 @@ var models = require('./models'),
     },
 
     blog_actions = {
-        'update':   login_required(update),
+        'update':   login_required(update), // todo: owner required
         'new':      login_required(neu),
-        'index':    login_required(index),
-        'edit':     login_required(edit),
+        'index':    login_required(index), // 
+        'edit':     login_required(edit), // todo: owner required
         'create':   login_required(create),
-        'trash':    login_required(trash), 
+        'trash':    login_required(trash), // todo: owner required
         'show':     show,
         'userTags': user_tag_counts
     };

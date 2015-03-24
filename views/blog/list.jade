@@ -19,7 +19,7 @@ block content
 						a.hover(href="/u/#{b.username}/blog/#{b.id}/edit") Edit
 					td
 						form.form-inline(action="/u/#{b.username}/blog/#{b.id}", method="post")
-							|!{ csrf_field }
+							| !{ csrf_field }
 							input(type="hidden", name="_method", value="DELETE")
 							button.hover.btn.btn-default.btn-sm(type="submit")
 								span.glyphicon.glyphicon-trash

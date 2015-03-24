@@ -6,12 +6,12 @@ requirejs(['./common'], function (config) {
     String.prototype.trim = function () {
       return this.replace(/^\s+|\s+$/g, '')
     };
-    var form_sel = '#blog_post_form'
-      , tag_box_sel = '#tags_box'
-      , tag_input_sel = 'input[name="blog[tags]"]' // input elems in the form
+    var FORM_SELECTOR = '#blog_post_form'
+      , TAG_BOX_SELECTOR = '#tags_box'
+      , TAG_INPUT_SELECTOR = 'input[name="blog[tags]"]' // input elems in the form
       , added_tags = []
       , set_added_tags = function () {
-          $(tag_input_sel).each(function (idx, elm) {
+          $(TAG_INPUT_SELECTOR).each(function (idx, elm) {
             added_tags.push(elm.value);
             // console.log(added_tags);
           });
@@ -36,7 +36,7 @@ requirejs(['./common'], function (config) {
                          .html(word)
                          .css('display', 'none')
                          .append('<button type="button">&times;</button>')
-                         .appendTo(tag_box_sel)
+                         .appendTo(TAG_BOX_SELECTOR)
                          .fadeIn();
 
               $('<input>').attr(
@@ -46,7 +46,7 @@ requirejs(['./common'], function (config) {
                  ,'name': 'blog[tags]'
                  ,'value': word
                 }
-              ).appendTo(form_sel);
+              ).appendTo(FORM_SELECTOR);
             }
           }
         }
@@ -60,9 +60,15 @@ requirejs(['./common'], function (config) {
               $new_tag_inputs = $tag_inputs.filter('input[data-new]');
           
           $tag_inputs.remove();
+
+          var indexOfWord = added_tags.indexOf(tag_word)
+          if ( indexOfWord !== -1) {
+            delete added_tags[indexOfWord]
+          }
+
           if (! $new_tag_inputs.length) {
             $('<input name=tags[toRemove] type=hidden value="' + tag_word +'"/>')
-            .appendTo(form_sel);
+            .appendTo(FORM_SELECTOR);
           }
           $parent.fadeOut(800, function () {
             $(this).remove();

@@ -22,6 +22,10 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
+
+require('./helpers')(app);
+
+
 passport.use(new LocalStrategy({usernameField: 'u', passwordField: 'pw'},
     function (username, password, done) {
         User.findOne({ username: username }, function (err, user) {
@@ -107,7 +111,7 @@ app.use(function (req, res, next) {
 
 app.use('/', blog_routes);
 app.use('/', account_routes);
-
+require('./routes/page')(app)
 
 /// catch 404 and forwarding to error handler
 app.use(function (req, res, next) {

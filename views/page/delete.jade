@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  h2.display-data Delete Page?
+            
+  table.table.table-bordered
+    tr
+      th Property
+      th Value
+        tr
+          td Title
+          td= display(page.title)
+        tr
+          td Body
+          td= display(page.body)
+
+
+  form#page-form.form-horizontal(action="/pages/" + page._id + "/delete", method="POST")
+    .form-actions
+      a.btn.btn-warning(href="/pages") Back
+      | 
+      input.btn.btn-danger(type="submit", value="Delete")

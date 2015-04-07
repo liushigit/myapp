@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  h2.display-data Page Detail
+            
+  table.table.table-bordered
+    tr
+      th Property
+      th Value
+        tr
+          td Title
+          td= display(page.title)
+        tr
+          td Body
+          td= display(page.body)
+
+
+  .form-actions
+    a.btn.btn-warning(href="/pages") Back
+    | 
+    a.btn.btn-primary(href="/pages/" + page._id + "/edit") Edit
+    | 
+    a.btn.btn-danger(href="/pages/" + page._id + "/delete") Delete

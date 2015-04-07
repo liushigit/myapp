@@ -171,7 +171,7 @@ var models = require('./models'),
           , update
           , function (err, blogEntry) {
                 if (err) {
-                    console.log('::blog update error', err)
+                //    console.log('::blog update error', err)
                     // error_handler(403, req, res);
                     next(err);
                 } else {

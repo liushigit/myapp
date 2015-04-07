@@ -1,0 +1,21 @@
+extends ../layout
+include ../mixins/form-helpers
+
+block content
+  form#page-form(action="/pages/" + page._id + "/edit", method="POST", role="form")
+    fieldset
+      legend Edit Page
+      != csrf_field
+      .form-group
+        mixin label("title", "Title")
+        mixin text("page[title]", page.title)
+        mixin errorMessage(page, 'title')
+      .form-group
+        mixin label("body", "Body")
+        mixin textarea("page[body]", page.body)
+        mixin errorMessage(page, 'body')
+
+    .form-actions
+      a.btn.btn-warning(href="/pages") Back
+      | 
+      input.btn.btn-primary(type="submit", value="Save")

@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  h2.display-data All Pages
+    a.btn.btn-primary.pull-right(href="/pages/create") Create a new Page
+
+  table.table.table-bordered.table-striped
+    tr
+        th Title
+        th Body
+        th
+
+    each page in pages
+      tr
+        td= display(page.title)
+        td= display(page.body)
+
+        td
+          a(href="/pages/" + page._id + "/detail", title="Detail")
+            i.glyphicon.glyphicon-search
+          | 
+          a(href="/pages/" + page._id + "/edit", title="Edit")
+            i.glyphicon.glyphicon-pencil
+          | 
+          a(href="/pages/" + page._id + "/delete", title="Delete")
+            i.glyphicon.glyphicon-ban-circle

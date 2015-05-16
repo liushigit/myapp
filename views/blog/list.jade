@@ -21,8 +21,9 @@ block content
 						form.form-inline(action="/u/#{b.username}/blog/#{b.id}", method="post")
 							| !{ csrf_field }
 							input(type="hidden", name="_method", value="DELETE")
-							button.hover.btn.btn-default.btn-sm(type="submit")
-								span.glyphicon.glyphicon-trash
+							button.hover.btn.btn-danger.btn-sm(type="submit")
+								//- span.glyphicon.glyphicon-trash
+								i.win-icon-delete
 					td.tags
 						each tag in b.tags
 							a.label.label-info(href="/u/#{b.username}/blog/?tag=#{tag.replace(/\+/g,'%2B')}")= tag

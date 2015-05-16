@@ -2,23 +2,22 @@ extends ../layout
 include ../mixins/form-helpers
 
 block content
-
-  form#page-form(action="/pages/create", method="POST")
-    fieldset
-      legend Create a new Page
-      != csrf_field
-      .form-group
-        mixin label("page[title]", "Title")
-
-        mixin text("page[title]", page.title)
-        mixin errorMessage(page, 'title')
-      .form-group
-        mixin label("body", "Body")
-
-        mixin textarea("page[body]", page.body)
-        mixin errorMessage(page, 'body')
-
-    .form-actions
-      a.btn.btn-warning(href="/pages") Back
-      | 
-      input.btn.btn-primary(type="submit", value="Create")
+  .col-md-24
+    form#page-form(action="/pages/create", method="POST")
+      fieldset
+        legend Create a new Page
+        != csrf_field
+        .form-group
+          mixin label("page[title]", "Title")
+          mixin text("page[title]", page.title)
+          +errorMessage(page, 'title')
+        .form-group
+          mixin label("body", "Body")
+    
+          mixin textarea("page[body]", page.body)
+          +errorMessage(page, 'body')
+    
+      .form-actions
+        a.btn.btn-warning(href="/pages") Back
+        | 
+        input.btn.btn-primary(type="submit", value="Create")

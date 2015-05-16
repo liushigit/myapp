@@ -14,8 +14,9 @@ module.exports = function(app) {
                         var message = util.format('%s is required', fieldName);
                         return util.format(errorTag, message);
                     }
-
-                    return util.format(errorTag, error.type || error.message);
+    	            var ret = util.format(errorTag, error.type || error.message);
+                    console.log(ret)
+                    return ret
                 }
             }
         }

@@ -1,0 +1,3 @@
+[submodule "public/bootstrap_winjs"]
+	path = public/bootstrap_winjs
+	url = https://github.com/winjs/bootstrap-winjs.git

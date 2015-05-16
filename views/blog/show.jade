@@ -10,7 +10,7 @@ block head_script
   +rjs("/js/blog_show")
 
 block content
-  .col-xs-9
+  .col-xs-18
     h1 #{entry.title}
 
     != entry.mdRender
@@ -20,7 +20,7 @@ block content
       span.text-muted 更新于 
           time(datetime="#{entry.updated.toISOString()}")
     a(href="/u/#{entry.username}/blog/") 返回
-  .col-xs-3
+  .col-xs-6
     if entry.tags.length
       .panel.panel-default(style="margin-top:20px")
         .panel-heading 标签

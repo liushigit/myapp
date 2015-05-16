@@ -5,19 +5,22 @@ block content
   .col-md-24
     form#page-form(action="/pages/create", method="POST")
       fieldset
-        legend Create a new Page
+        legend 新建页面
         != csrf_field
         .form-group
-          mixin label("page[title]", "Title")
+          mixin label("page[title]", "标题")
           mixin text("page[title]", page.title)
           +errorMessage(page, 'title')
         .form-group
-          mixin label("body", "Body")
-    
+          mixin label("body", "正文")
           mixin textarea("page[body]", page.body)
           +errorMessage(page, 'body')
+        .form-group
+          input(type="hidden", value="false" name="page[isHome]")
+          +label("isHome", "首页")
+          input(type="checkbox", value="true", name="page[isHome]")
     
       .form-actions
-        a.btn.btn-warning(href="/pages") Back
+        a.btn.btn-warning(href="/pages") 返回
         | 
-        input.btn.btn-primary(type="submit", value="Create")
+        input.btn.btn-primary(type="submit", value="创建")

@@ -1,6 +1,7 @@
 var Page = require('../models/page'),
     mapper = require('../lib/model-mapper'),
-    decorators = require('../useful/actions/decorators')
+    decorators = require('../useful/actions/decorators'),
+    User = require('../account/models').User
 
 module.exports = function(app) {
 
@@ -15,6 +16,20 @@ module.exports = function(app) {
         });
     });
     
+    app.param('username', function(req, res, next, id) {
+        console.log('username mdware')
+        User.findOne({username: req.params.username}, function(err, result) {
+            if(err) {
+                console.log(' user finding error')
+                return next(err)
+            } 
+            if(!result) {
+                return next(new Error("no username match"))
+            }
+            next();
+        }) 
+    })
+       
     app.get('/pages', function(req, res) {
         Page.find({}, function(err, pages) {
             res.render('page/index', { pages : pages });
@@ -33,7 +48,8 @@ module.exports = function(app) {
         page.on('error', function(){})
 
         page.userId = req.user._id
-
+    	page.username = req.user.username
+        
         page.save(function(err) {
             if (err) {
                 res.render('page/create', {
@@ -46,6 +62,15 @@ module.exports = function(app) {
     }
     
     app.post('/pages/create', decorators.login_required(_create_post));
+    
+    app.get('/pages/:username/', function(req, res) {
+        Page.find({
+            username: req.params.username
+        }, function(err, pages) {
+            res.render('page/pages_public_home', { pages : pages });
+        });
+    })
+
 
     app.get('/pages/:pageId/edit', decorators.owner_required(
         function(req, res) {

@@ -8,7 +8,11 @@ var Page = new Schema({
         type: Schema.Types.ObjectId, 
         index: 'hashed',
         required: true
-    }
+    },
+    username: {
+        type: String, required: true
+    },
+    isHome: Boolean
 });
 
 

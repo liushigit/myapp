@@ -1,0 +1,19 @@
+extends ../layout
+
+block content
+  .row(style="margin-top:32px")
+    .col-md-6.col-sm-6
+      figure.win-media
+        .win-media-img.win-radio-movie
+          img(src="http://lorempixel.com/219/300/technics/6", alt="")
+        figcaption.win-media-caption
+          h4.win-media-header 某人
+            
+      ul.nav.nav-pills.nav-stacked.clearfix
+        each page in pages
+          li
+            a #{page.title}
+    .col-md-17.col-md-offset-1
+      each page in pages
+        if page.isHome
+          .content #{page.body}

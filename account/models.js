@@ -26,7 +26,6 @@ UserSchema.methods.validPassword = function (password) {
 };
 
 var User = mongoose.model('User', UserSchema),
-
     Utility = {};
 
 Utility.encrypt = function (s) {

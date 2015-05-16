@@ -1,13 +1,13 @@
 extends ../layout
 
 block content
-  h2.display-data All Pages
-    a.btn.btn-primary.pull-right(href="/pages/create") Create a new Page
+  h2.display-data 页面
+    a.btn.btn-primary.pull-right(href="/pages/create") 新建页面
 
   table.table.table-bordered.table-striped
     tr
-        th Title
-        th Body
+        th 标题
+        th 正文
         th
 
     each page in pages

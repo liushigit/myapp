@@ -5,7 +5,11 @@ block title
 
 block content
 	.col-xs-4
-		form(role='form', action="/login", method="post")
+		- var url = "/login"
+		if next_url
+			- url = url + "?next=" + next_url
+		form(role='form', action="#{url}", method="post")
+
 			fieldset
 				legend Sign in
 				

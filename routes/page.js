@@ -1,6 +1,6 @@
 var Page = require('../models/page'),
-    mapper = require('../lib/model-mapper');
-
+    mapper = require('../lib/model-mapper'),
+    decorators = require('../useful/actions/decorators')
 
 module.exports = function(app) {
 
@@ -21,14 +21,19 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/pages/create', function(req, res) {
-        res.render('page/create', { page : new Page() });
-    });
-
-    app.post('/pages/create', function(req, res) {
-        // console.log(req.body)
+    app.get('/pages/create', decorators.login_required(
+        function(req, res) {
+            res.render('page/create', { page : new Page() });
+        }, '/pages/create')
+    );
+    
+    function create_post (req, res) {
         var page = new Page(req.body.page);
+
         page.on('error', function(){})
+
+        page.userId = req.user._id
+
         page.save(function(err) {
             if (err) {
                 res.render('page/create', {
@@ -37,36 +42,17 @@ module.exports = function(app) {
             } else {
                 res.redirect('/pages');
             }
-        });
-    });
+        }); 
+    }
+    
+    app.post('/pages/create', decorators.login_required(create_post));
 
     app.get('/pages/:pageId/edit', function(req, res) {
         res.render('page/edit');
     });
 
     app.post('/pages/:pageId/edit', function(req, res) {
-       /* var entry = req.body.page || {}
-           ,update = {}
-
-        update.$set = entry
-
-        Page.findOneAndUpdate(
-            {
-                _id: req.params.pageId
-                // username: username,
-                //userId: req.user._id
-            }
-          , update
-          , function (err, data) {
-                if (err) {
-                    res.locals.page = entry
-                    res.render('page/edit');
-                } else {
-                    console.log("suav")
-                    res.redirect('/pages');
-                }
-            }
-        ); */
+        
         mapper.map(req.body.page).to(res.locals.page);
 
         res.locals.page.save(function(err) {

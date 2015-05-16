@@ -3,7 +3,12 @@ var Schema = mongoose.Schema;
 
 var Page = new Schema({
     title: { type: String, required: true },
-    body: { type: String, required: false }
+    body: { type: String, required: false },
+    userId: {
+        type: Schema.Types.ObjectId, 
+        index: 'hashed',
+        required: true
+    }
 });
 
 

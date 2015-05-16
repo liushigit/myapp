@@ -44,7 +44,7 @@ var models = require('./models'),
         }
 
         var paginated_by = 10
-          , page = req.param('page') > 0 ? req.param('page') : 1
+          , page = req.query.page > 0 ? req.query.page : 1
           , conditions = {
                 username: req.params.user
               , trashed: false
@@ -58,13 +58,15 @@ var models = require('./models'),
         .exec(  
             function (err, docs) {
                 if (err) {
+                    console.log("err at blog index")
                     return next(err);
                 }
                 BlogEntry.count(conditions , function (err, count) {
                     if (err) {
+                        console.log('blog index count err')
                         return next(err);
                     }
-                    // console.log('index', count)
+                    console.log('index', count)
                     var paginator = require('../useful/template/helpers').paginator
                       , createPagination = paginator(req);
 

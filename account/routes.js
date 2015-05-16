@@ -8,6 +8,7 @@ var express = require('express'),
 
 
 router.get('/login', function (req, res) {
+    res.locals.next_url = req.query.next
     res.render('account/login');
 });
 
@@ -20,6 +21,7 @@ router.get('/login', function (req, res) {
 );*/
 
 router.post('/login', function (req, res, next) {
+    
     passport.authenticate('local', function (err, user, info) {
         if (err) {
             return next(err);
@@ -33,6 +35,9 @@ router.post('/login', function (req, res, next) {
                 return next(err);
             }
             // req.flash('success', '欢迎回来！');
+            if (req.query.next && req.query.next != 'undefined') {
+                return res.redirect(req.query.next)
+            }
             return res.redirect('/u/'+ user.username +'/blog/');
         });
     })(req, res, next);

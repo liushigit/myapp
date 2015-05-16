@@ -17,6 +17,7 @@ block content
 
   form#page-form.form-horizontal(action="/pages/" + page._id + "/delete", method="POST")
     .form-actions
+      != csrf_field
       a.btn.btn-warning(href="/pages") Back
       | 
       input.btn.btn-danger(type="submit", value="Delete")

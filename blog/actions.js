@@ -17,8 +17,8 @@ var models = require('./models'),
     },
 
     list_posts_with_tag = function (req, res, next) {
-        var tag = req.param('tag');
-        // console.log(tag)
+        var tag = req.query['tag'];
+        //console.log(tag)
         BlogEntry.find(
             {
                 'tags': tag
@@ -39,7 +39,7 @@ var models = require('./models'),
     },
 
     index = function (req, res, next) {
-        if (req.param('tag')) {
+        if (req.query.tag) {
             return list_posts_with_tag(req, res, next);
         }
 

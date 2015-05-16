@@ -27,7 +27,7 @@ module.exports = function(app) {
         }, '/pages/create')
     );
     
-    function create_post (req, res) {
+    function _create_post (req, res) {
         var page = new Page(req.body.page);
 
         page.on('error', function(){})
@@ -45,11 +45,12 @@ module.exports = function(app) {
         }); 
     }
     
-    app.post('/pages/create', decorators.login_required(create_post));
+    app.post('/pages/create', decorators.login_required(_create_post));
 
-    app.get('/pages/:pageId/edit', function(req, res) {
-        res.render('page/edit');
-    });
+    app.get('/pages/:pageId/edit', decorators.owner_required(
+        function(req, res) {
+            res.render('page/edit');
+        }, 'page'));
 
     app.post('/pages/:pageId/edit', function(req, res) {
         

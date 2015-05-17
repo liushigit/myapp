@@ -4,7 +4,12 @@ var Page = require('../models/page'),
     User = require('../account/models').User
 
 module.exports = function(app) {
-
+    
+    app.use(function(req, res, next) {
+        res.locals.originalUrl = req.originalUrl
+        next()
+    })
+    
     app.param('pageId', function(req, res, next, id) {
         Page.findById(id, function(err, page) {
             if (err) {
@@ -17,14 +22,14 @@ module.exports = function(app) {
     });
     
     app.param('username', function(req, res, next, id) {
-        console.log('username mdware')
         User.findOne({username: req.params.username}, function(err, result) {
             if(err) {
                 console.log(' user finding error')
                 return next(err)
             } 
             if(!result) {
-                return next(new Error("no username match"))
+                // Todo: this should be a 404
+                return next(new Error("404"))
             }
             next();
         }) 
@@ -44,7 +49,7 @@ module.exports = function(app) {
     
     function _create_post (req, res) {
         var page = new Page(req.body.page);
-
+        
         page.on('error', function(){})
 
         page.userId = req.user._id
@@ -63,11 +68,42 @@ module.exports = function(app) {
     
     app.post('/pages/create', decorators.login_required(_create_post));
     
-    app.get('/pages/:username/', function(req, res) {
+    app.get('/pages/:username/:pageId', function(req, res, next) {
+        if (res.locals.page && 
+                res.locals.page.username == req.params.username ) {
+            Page.find({
+                username: req.params.username
+            }, function(err, pages) {
+                if(err) {
+                    return next(err)
+                } else if(res.locals.page) {
+                    return res.render('page/pages_public_home', 
+                        { pages : pages, 
+                          page : res.locals.page });
+                }
+            })
+        } else {
+            return next()
+        }
+    })
+    
+    app.get('/pages/:username/', function(req, res, next) {
         Page.find({
             username: req.params.username
         }, function(err, pages) {
-            res.render('page/pages_public_home', { pages : pages });
+            if (err) {
+                return next(err)
+            } else {
+                Page.findOne({
+                    username: req.params.username,
+                    isHome: true
+                }, function(err, doc) {
+                    if(err) return next(err)
+                    res.render('page/pages_public_home', 
+                        { pages : pages, 
+                         page : doc });
+                })
+            }
         });
     })
 
@@ -78,9 +114,8 @@ module.exports = function(app) {
         }, 'page'));
 
     app.post('/pages/:pageId/edit', function(req, res) {
-        
+        //req.body.page.isHome = req.body.page.isHome != "false"
         mapper.map(req.body.page).to(res.locals.page);
-
         res.locals.page.save(function(err) {
             if (err) {
                 res.render('page/edit');

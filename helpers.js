@@ -15,7 +15,7 @@ module.exports = function(app) {
                         return util.format(errorTag, message);
                     }
     	            var ret = util.format(errorTag, error.type || error.message);
-                    console.log(ret)
+                    //console.log(ret)
                     return ret
                 }
             }

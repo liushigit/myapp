@@ -9,11 +9,16 @@ block content
       .form-group
         mixin label("title", "Title")
         mixin text("page[title]", page.title)
-        mixin errorMessage(page, 'title')
+        +errorMessage(page, 'title')
       .form-group
         mixin label("body", "Body")
         mixin textarea("page[body]", page.body)
-        mixin errorMessage(page, 'body')
+        +errorMessage(page, 'body')
+      .form-group
+        +label('isHome', "首页")
+        | &nbsp;
+        input(type="hidden", value="false" name="page[isHome]")
+        input(type="checkbox", value="true", name="page[isHome]", checked=(page.isHome || undefined))
 
     .form-actions
       a.btn.btn-warning(href="/pages") Back

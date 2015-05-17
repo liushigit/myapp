@@ -15,5 +15,12 @@ var Page = new Schema({
     isHome: Boolean
 });
 
+Page.virtual('pageUrl').get(function(){
+    var url = '/pages/' + this.username
+    if (!this.isHome) {
+        url = url + '/' + this._id
+    }
+    return url
+})
 
 module.exports = mongoose.model('Page', Page);

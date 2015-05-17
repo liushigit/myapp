@@ -22,5 +22,5 @@ mixin date(field, value)
 mixin datetime(field, value)
   input.form-control(type="datetime", id=field, name=field, value=value)
 
-mixin errorMessage(model, field)
-  !{errorFor(model, field)}
+mixin errorMessage(model, field) 
+   div !{errorFor(model, field)}

@@ -8,12 +8,11 @@ block content
           img(src="http://lorempixel.com/219/300/technics/6", alt="")
         figcaption.win-media-caption
           h4.win-media-header 某人
-            
+      #{originalUrl}
       ul.nav.nav-pills.nav-stacked.clearfix
-        each page in pages
-          li
-            a #{page.title}
+        each p in pages
+          li(class=originalUrl==p.pageUrl?"active":"")
+            a(href=p.pageUrl) #{p.title}
     .col-md-17.col-md-offset-1
-      each page in pages
-        if page.isHome
-          .content #{page.body}
+      .content #{page.body}
+    

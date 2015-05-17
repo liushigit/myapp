@@ -68,7 +68,8 @@ router.post('/login', function (req, res, next) {
             if (req.query.next && req.query.next != 'undefined') {
                 return res.redirect(req.query.next)
             }
-            return res.redirect('/u/'+ user.username +'/blog/');
+            //return res.redirect('/u/'+ user.username +'/blog/');
+            return res.redirect('/pages/')
         });
     })(req, res, next);
 });

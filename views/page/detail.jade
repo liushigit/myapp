@@ -1,23 +1,23 @@
 extends ../layout
 
 block content
-  h2.display-data Page Detail
+  h2.display-data 页面详情
             
   table.table.table-bordered
     tr
-      th Property
-      th Value
+      th 属性
+      th 值
         tr
-          td Title
+          td 标题
           td= display(page.title)
         tr
-          td Body
+          td 正文
           td= display(page.body)
 
 
   .form-actions
-    a.btn.btn-warning(href="/pages") Back
+    a.btn.btn-warning(href="/pages") 返回
     | 
-    a.btn.btn-primary(href="/my/pages/" + page._id + "/edit") Edit
+    a.btn.btn-primary(href="/my/pages/" + page._id + "/edit") 编辑
     | 
-    a.btn.btn-danger(href="/my/pages/" + page._id + "/delete") Delete
+    a.btn.btn-danger(href="/my/pages/" + page._id + "/delete") 删除

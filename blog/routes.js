@@ -5,7 +5,7 @@ var blog = require('./actions');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Faculty' });
 });
 
 router.get('/blog/new', blog.new);

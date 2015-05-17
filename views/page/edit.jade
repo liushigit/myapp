@@ -4,14 +4,14 @@ include ../mixins/form-helpers
 block content
   form#page-form(action="/my/pages/" + page._id + "/edit", method="POST", role="form")
     fieldset
-      legend Edit Page
+      legend 编辑页面
       != csrf_field
       .form-group
-        mixin label("title", "Title")
+        mixin label("title", "标题")
         mixin text("page[title]", page.title)
         +errorMessage(page, 'title')
       .form-group
-        mixin label("body", "Body")
+        mixin label("body", "正文")
         mixin textarea("page[body]", page.body)
         +errorMessage(page, 'body')
       .form-group
@@ -21,6 +21,6 @@ block content
         input(type="checkbox", value="true", name="page[isHome]", checked=(page.isHome || undefined))
 
     .form-actions
-      a.btn.btn-warning(href="/pages") Back
+      a.btn.btn-warning(href="/pages") 返回
       | 
-      input.btn.btn-primary(type="submit", value="Save")
+      input.btn.btn-primary(type="submit", value="保存")

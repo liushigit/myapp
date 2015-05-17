@@ -38,11 +38,13 @@ module.exports = function(app) {
     var MY_PAGES_URL = '/pages'
       , CREATE_PAGE_URL = '/my/pages/create'
       
-    app.get(MY_PAGES_URL, function(req, res) {
-        Page.find({}, function(err, pages) {
+    app.get(MY_PAGES_URL, decorators.login_required(function(req, res) {
+        Page.find({
+            userId: req.user._id
+        }, function(err, pages) {
             res.render('page/index', { pages : pages });
         });
-    });
+    }));
     
     
     app.get(CREATE_PAGE_URL, decorators.login_required(
@@ -117,7 +119,7 @@ module.exports = function(app) {
             res.render('page/edit');
         }, 'page'));
 
-    app.post('/my/pages/:pageId/edit', function(req, res) {
+    app.post('/my/pages/:pageId/edit', decorators.owner_required(function(req, res) {
         //req.body.page.isHome = req.body.page.isHome != "false"
         mapper.map(req.body.page).to(res.locals.page);
         res.locals.page.save(function(err) {
@@ -127,21 +129,21 @@ module.exports = function(app) {
                 res.redirect(MY_PAGES_URL);
             }
         });
-    });
+    }, 'page'));
 
-    app.get('/my/pages/:pageId/detail', function(req, res) {
+    app.get('/my/pages/:pageId/detail', decorators.owner_required(function(req, res) {
         res.render('page/detail');
-    });
+    }, 'page'));
 
-    app.get('/my/pages/:pageId/delete', function(req, res) {
+    app.get('/my/pages/:pageId/delete', decorators.owner_required(function(req, res) {
         res.render('page/delete');
-    });
+    }, 'page'));
 
-    app.post('/my/pages/:pageId/delete', function(req, res) {
+    app.post('/my/pages/:pageId/delete', decorators.owner_required(function(req, res) {
         Page.remove({ _id : req.params.pageId }, function(err) {
             res.redirect(MY_PAGES_URL);
         });
-    });
+    }, 'page'));
 }
 
 // Used to build the index page. Can be safely removed!

@@ -11,7 +11,7 @@ block content
 		form(role='form', action="#{url}", method="post")
 
 			fieldset
-				legend Sign in
+				legend 登录
 				
 				div.form-group
 					label(for="username") 用户名
@@ -20,4 +20,4 @@ block content
 					label(for="password") 密码
 					input.form-control(id='password', type="password", name="pw")
 				|!{csrf_field}
-				input.btn.btn-default(type="submit", value="Log in")
+				input.btn.btn-default(type="submit", value="登入")

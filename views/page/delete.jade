@@ -1,23 +1,23 @@
 extends ../layout
 
 block content
-  h2.display-data Delete Page?
+  h2.display-data 确认删除?
             
   table.table.table-bordered
     tr
-      th Property
-      th Value
+      th 属性
+      th 值
         tr
-          td Title
+          td 标题
           td= display(page.title)
         tr
-          td Body
+          td 正文
           td= display(page.body)
 
 
   form#page-form.form-horizontal(action="/my/pages/" + page._id + "/delete", method="POST")
     .form-actions
       != csrf_field
-      a.btn.btn-warning(href="/pages") Back
+      a.btn.btn-warning(href="/pages") 返回
       | 
-      input.btn.btn-danger(type="submit", value="Delete")
+      input.btn.btn-danger(type="submit", value="删除")

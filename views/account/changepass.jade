@@ -1,0 +1,19 @@
+extends ../layout
+
+block title
+  | 更改密码
+
+block content
+  form(role='form', action="/changepass", method="post")
+    | !{csrf_field}
+    fieldset
+      
+      div.form-group
+      div.form-group
+        label(for="oldpw") 旧密码
+        input#oldpw.form-control(type="password", name="old_pw")
+      div.form-group
+        label(for="password") 新密码
+        input#password.form-control(type="password", name="password")
+    
+    input.btn.btn-default(type="submit", value="更改密码")

@@ -4,7 +4,8 @@ var express = require('express'),
     router = express.Router(),
     passport = require('passport'),
     User = require('./models').User,
-    Utility = require('./models').Utility;
+    Utility = require('./models').Utility,
+    decorators = require('../useful/actions/decorators')
 
 
 router.get('/login', function (req, res) {
@@ -20,7 +21,12 @@ router.get('/login', function (req, res) {
                                           })
 );*/
 
-router.post('/changepasswd', function (req, res, next) {
+var PASSWORD_URL = '/changepass'
+router.get(PASSWORD_URL, decorators.login_required(function(req, res, next) {
+                            res.render('account/changepass');
+                         }))
+
+router.post(PASSWORD_URL, decorators.login_required(function (req, res, next) {
     User.findOne({
         _id: req.user._id,
         password: Utility.encrypt(req.body.old_pw)
@@ -31,16 +37,18 @@ router.post('/changepasswd', function (req, res, next) {
             doc.save(function(err) {
                 if(err) return next(err)
                 req.flash("success", "密码修改成功")
+                return res.render('account/changepass', {
+                    msgs: req.flash()
+                })
             })
         } else {
             req.flash("error", "密码修改失败")
-        }
-        res.render('/changepasswd', {
-            msgs: req.flash() 
-        })
+            res.render('account/changepass', {
+                msgs: req.flash()
+            })
+        }  
     })
-    
-})
+}))
 
 router.post('/login', function (req, res, next) {
     

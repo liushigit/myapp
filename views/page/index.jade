@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   h2.display-data 页面
-    a.btn.btn-primary.pull-right(href="/pages/create") 新建页面
+    a.btn.btn-primary.pull-right(href="/my/pages/create") 新建页面
 
   table.table.table-bordered.table-striped
     tr
@@ -16,11 +16,11 @@ block content
         td= display(page.body)
 
         td
-          a(href="/pages/" + page._id + "/detail", title="Detail")
+          a(href="/my/pages/" + page._id + "/detail", title="Detail")
             i.glyphicon.glyphicon-search.win-icon-magnifier
           | 
-          a(href="/pages/" + page._id + "/edit", title="Edit")
+          a(href="/my/pages/" + page._id + "/edit", title="Edit")
             i.glyphicon.glyphicon-pencil.win-icon-edit
           | 
-          a(href="/pages/" + page._id + "/delete", title="Delete")
+          a(href="/my/pages/" + page._id + "/delete", title="Delete")
             i.glyphicon.glyphicon-ban-circle.win-icon-delete

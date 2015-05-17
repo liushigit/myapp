@@ -34,17 +34,21 @@ module.exports = function(app) {
             next();
         }) 
     })
-       
-    app.get('/pages', function(req, res) {
+    
+    var MY_PAGES_URL = '/pages'
+      , CREATE_PAGE_URL = '/my/pages/create'
+      
+    app.get(MY_PAGES_URL, function(req, res) {
         Page.find({}, function(err, pages) {
             res.render('page/index', { pages : pages });
         });
     });
-
-    app.get('/pages/create', decorators.login_required(
+    
+    
+    app.get(CREATE_PAGE_URL, decorators.login_required(
         function(req, res) {
             res.render('page/create', { page : new Page() });
-        }, '/pages/create')
+        }, CREATE_PAGE_URL)
     );
     
     function _create_post (req, res) {
@@ -61,12 +65,12 @@ module.exports = function(app) {
                     page : page
                 });
             } else {
-                res.redirect('/pages');
+                res.redirect(MY_PAGES_URL);
             }
         }); 
     }
     
-    app.post('/pages/create', decorators.login_required(_create_post));
+    app.post(CREATE_PAGE_URL, decorators.login_required(_create_post));
     
     app.get('/pages/:username/:pageId', function(req, res, next) {
         if (res.locals.page && 
@@ -108,34 +112,34 @@ module.exports = function(app) {
     })
 
 
-    app.get('/pages/:pageId/edit', decorators.owner_required(
+    app.get('/my/pages/:pageId/edit', decorators.owner_required(
         function(req, res) {
             res.render('page/edit');
         }, 'page'));
 
-    app.post('/pages/:pageId/edit', function(req, res) {
+    app.post('/my/pages/:pageId/edit', function(req, res) {
         //req.body.page.isHome = req.body.page.isHome != "false"
         mapper.map(req.body.page).to(res.locals.page);
         res.locals.page.save(function(err) {
             if (err) {
                 res.render('page/edit');
             } else {
-                res.redirect('/pages');
+                res.redirect(MY_PAGES_URL);
             }
         });
     });
 
-    app.get('/pages/:pageId/detail', function(req, res) {
+    app.get('/my/pages/:pageId/detail', function(req, res) {
         res.render('page/detail');
     });
 
-    app.get('/pages/:pageId/delete', function(req, res) {
+    app.get('/my/pages/:pageId/delete', function(req, res) {
         res.render('page/delete');
     });
 
-    app.post('/pages/:pageId/delete', function(req, res) {
+    app.post('/my/pages/:pageId/delete', function(req, res) {
         Page.remove({ _id : req.params.pageId }, function(err) {
-            res.redirect('/pages');
+            res.redirect(MY_PAGES_URL);
         });
     });
 }

@@ -3,7 +3,7 @@ include ../mixins/form-helpers
 
 block content
   .col-md-24
-    form#page-form(action="/pages/create", method="POST")
+    form#page-form(action="/my/pages/create", method="POST")
       fieldset
         legend 新建页面
         != csrf_field

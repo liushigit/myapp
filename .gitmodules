@@ -1,3 +1,6 @@
 [submodule "public/bootstrap_winjs"]
 	path = public/bootstrap_winjs
 	url = https://github.com/winjs/bootstrap-winjs.git
+[submodule "node-monit"]
+	path = node-monit
+	url = https://github.com/nicokaiser/node-monit.git

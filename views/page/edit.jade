@@ -2,7 +2,7 @@ extends ../layout
 include ../mixins/form-helpers
 
 block content
-  form#page-form(action="/pages/" + page._id + "/edit", method="POST", role="form")
+  form#page-form(action="/my/pages/" + page._id + "/edit", method="POST", role="form")
     fieldset
       legend Edit Page
       != csrf_field

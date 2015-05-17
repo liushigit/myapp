@@ -15,7 +15,7 @@ block content
           td= display(page.body)
 
 
-  form#page-form.form-horizontal(action="/pages/" + page._id + "/delete", method="POST")
+  form#page-form.form-horizontal(action="/my/pages/" + page._id + "/delete", method="POST")
     .form-actions
       != csrf_field
       a.btn.btn-warning(href="/pages") Back

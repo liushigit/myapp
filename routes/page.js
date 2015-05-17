@@ -93,6 +93,7 @@ module.exports = function(app) {
         }
     })
     
+    // Personal Public Home Page
     app.get('/pages/:username/', function(req, res, next) {
         Page.find({
             username: req.params.username

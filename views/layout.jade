@@ -28,7 +28,9 @@ html
                       ul.nav.navbar-nav
                         if(user)
                             li
-                                a(href="/pages/#{user.username}") 预览
+                                a(href="/pages/#{user.username}", target='_blank') 预览
+                            li(class=originalUrl=='/pages/'?"active":"")
+                                a(href='/pages/') 管理页面
                       ul.nav.navbar-nav.navbar-right
                         -if(user)
                             li

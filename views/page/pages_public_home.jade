@@ -14,5 +14,6 @@ block content
           li(class=originalUrl==p.pageUrl?"active":"")
             a(href=p.pageUrl) #{p.title}
     .col-md-17.col-md-offset-1
-      .content #{page.body}
+      if page
+        .content #{page.body}
     

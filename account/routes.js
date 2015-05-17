@@ -20,6 +20,28 @@ router.get('/login', function (req, res) {
                                           })
 );*/
 
+router.post('/changepasswd', function (req, res, next) {
+    User.findOne({
+        _id: req.user._id,
+        password: Utility.encrypt(req.body.old_pw)
+    }, function(err, doc){
+        if(err) return next(err)
+        else if (doc) {
+            doc.password = Utility.encrypt(req.body.password)
+            doc.save(function(err) {
+                if(err) return next(err)
+                req.flash("success", "密码修改成功")
+            })
+        } else {
+            req.flash("error", "密码修改失败")
+        }
+        res.render('/changepasswd', {
+            msgs: req.flash() 
+        })
+    })
+    
+})
+
 router.post('/login', function (req, res, next) {
     
     passport.authenticate('local', function (err, user, info) {

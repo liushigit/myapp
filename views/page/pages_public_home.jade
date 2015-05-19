@@ -15,5 +15,6 @@ block content
             a(href=p.pageUrl) #{p.title}
     .col-md-17.col-md-offset-1
       if page
-        .content #{page.body}
+        .content 
+          != page.mdRender
     

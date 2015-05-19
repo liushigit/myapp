@@ -1,6 +1,8 @@
 var mongoose = require('../db');
 var Schema = mongoose.Schema;
 
+var marked = require('marked')
+
 var Page = new Schema({
     title: { type: String, required: true },
     body: { type: String, required: false },
@@ -22,5 +24,11 @@ Page.virtual('pageUrl').get(function(){
     }
     return url
 })
+
+
+Page.virtual('mdRender').get(function () {
+    return marked(this.body);
+});
+
 
 module.exports = mongoose.model('Page', Page);

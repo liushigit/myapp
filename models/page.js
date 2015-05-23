@@ -6,6 +6,7 @@ var marked = require('marked')
 var Page = new Schema({
     title: { type: String, required: true },
     body: { type: String, required: false },
+    order: {type: Number, required: true, default: -1 },
     userId: {
         type: Schema.Types.ObjectId, 
         index: 'hashed',

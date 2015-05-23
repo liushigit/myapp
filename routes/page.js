@@ -3,6 +3,12 @@ var Page = require('../models/page'),
     decorators = require('../useful/actions/decorators'),
     User = require('../account/models').User
 
+
+
+function reorderPages(pages) {
+    
+}
+
 module.exports = function(app) {
     
     app.use(function(req, res, next) {

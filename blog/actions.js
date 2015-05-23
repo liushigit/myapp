@@ -51,7 +51,7 @@ var models = require('./models'),
             };
 
         BlogEntry
-        .find(conditions)
+        .find(conditions) // Todo: find titles only should be enough
         .skip(paginated_by * (page - 1))
         .limit(paginated_by)
         .sort({'updated': 'descending'})
@@ -66,7 +66,7 @@ var models = require('./models'),
                         console.log('blog index count err')
                         return next(err);
                     }
-                    console.log('index', count)
+                    //console.log('index', count)
                     var paginator = require('../useful/template/helpers').paginator
                       , createPagination = paginator(req);
 

@@ -58,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
 app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
 app.use(express.static(path.join(__dirname, 'bower_components/moment/min/')));
+app.use(express.static(path.join(__dirname, 'bower_components/')));
 
 app.use(favicon());
 app.use(logger('dev'));

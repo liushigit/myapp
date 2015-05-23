@@ -10,7 +10,8 @@ require.config({
     jquery: "../jquery.min",
     moment: "../moment.min",
     highlight: "lib/hlt",
-    rainbow: 'lib/rainbow-custom.min'
+    rainbow: 'lib/rainbow-custom.min',
+    sortable: '../html.sortable/dist/html.sortable.min'
   },
   packages: [
 

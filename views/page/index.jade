@@ -1,21 +1,20 @@
 extends ../layout
 
+
+block head_css
+    link(rel='stylesheet', href='/sortable.css')
+
+block head_script
+    +rjs("/js/page_index.js")
+
 block content
   h2.display-data 页面
     a.btn.btn-primary.pull-right(href="/my/pages/create") 新建页面
 
-  table.table.table-bordered.table-striped
-    tr
-        th 标题
-        th 正文
-        th
-
+  ul.sortable.list-group
     each page in pages
-      tr
-        td= display(page.title)
-        td= display(page.body)
-
-        td
+      li.list-group-item(data-page-id="#{page._id}", data-page-order="#{page.order}")= page.title
+        .pull-right
           a(href="/my/pages/" + page._id + "/detail", title="Detail")
             i.glyphicon.glyphicon-search.win-icon-magnifier
           | 

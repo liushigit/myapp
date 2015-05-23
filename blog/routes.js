@@ -9,8 +9,8 @@ router.get('/', function(req, res) {
 });
 
 router.get('/blog/new', blog.new);
-router.get('/u/:user/blog/', blog.index);
 router.post('/u/:user/blog/', blog.create );
+router.get('/u/:user/blog/', blog.index);
 router.get('/u/:user/blog/:id/edit', blog.edit);
 router.put('/u/:user/blog/:id', blog.update);
 router.get('/u/:user/blog/:id', blog.show);

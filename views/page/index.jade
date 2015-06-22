@@ -10,7 +10,7 @@ block head_script
 block content
   h2.display-data 页面
     a.btn.btn-primary.pull-right(href="/my/pages/create") 新建页面
-
+  != csrf_field
   ul.sortable.list-group
     each page in pages
       li.list-group-item(data-page-id="#{page._id}", data-page-order="#{page.order}")= page.title

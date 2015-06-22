@@ -102,12 +102,12 @@ app.use(passport.session());
 // some locals in templates
 app.use(function (req, res, next) {
     res.locals.csrf_field = 
-        '<input type="hidden" name="_csrf" value="' + 
+        '<input id="csrf" type="hidden" name="_csrf" value="' + 
         req.csrfToken() + '">';
     res.locals.user = req.user;
     res.locals.msgs = req.flash();
     next();
-});
+}); 
 
 
 app.use('/', blog_routes);

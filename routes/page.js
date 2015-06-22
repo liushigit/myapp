@@ -1,15 +1,102 @@
+/* global Promise */
+'use strict';
+
 var Page = require('../models/page'),
     mapper = require('../lib/model-mapper'),
     decorators = require('../useful/actions/decorators'),
-    User = require('../account/models').User
+    User = require('../account/models').User,
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose');
 
 
+/* 
+ * Returns a promise that normalizes(i.e. give them numbers) all unordered pages.
 
-function reorderPages(pages) {
+*/
+var _normalizePages = function (username) {
+
+    var onGetUnorderedInfo = function (info) {
+        
+        var maxOrderNumber = (Array.isArray(info[0]) && info[0][0].maxOrderNumber) || 0;
+        var unorderedPages = info[1];
+        console.log([maxOrderNumber, unorderedPages])
+        
+        if (Array.isArray(unorderedPages) && unorderedPages.length) {
+            
+            var bulkUpdate = new Promise( function(resolve, reject) {
+                
+                var bulk = Page.collection.initializeUnorderedBulkOp()
+                
+                var orderNumber = maxOrderNumber + 1
+                
+                unorderedPages.forEach(function(record) {
+                    bulk.find({_id: record._id}).updateOne({$set:{order: orderNumber}})
+                    orderNumber += 1
+                })
+                
+                bulk.execute( function(err, bulkResult) {
+                    if (err) {
+                        console.log(err.toString())
+                        return reject(err)
+                    }
+                    //console.log('resolveddd')
+                    resolve(bulkResult)
+                })
+                //console.log("execute")
+            })
+        } 
+        
+        return bulkUpdate
+    }
+    
+    return Promise.all([Page.getMaxOrderNumberForUser(username).exec(), 
+                        Page.findUnorderedPagesForUser(username).exec()])
+                  .then(onGetUnorderedInfo)
+}
+
+//--------------
+
+function normalizePages(req, res, next) {
+    
+    _normalizePages(req.user.username).then(
+        function (value) {
+            res.send("hello")
+        },
+        function(err) {
+            console.log(err)
+            next(err)
+        }
+    )
+}
+
+//--------------
+
+
+function reorderPages(req, res, next) {
+    console.log(req.body)
+    if (req.xhr) {
+        console.log('rp', req.body.movedItemId, req.body.rightItemId, req.user.username)
+        // console.log(Page.reorder)
+        Page.reorder(req.body.movedItemId, req.body.rightItemId, req.user.username)
+            .then(function(result) {
+                res.send({status: 'reordered'})
+            }, function(reason) {
+                console.log(reason)
+                next(reason)
+            })
+    } else {
+        res.send("nonono")
+    }
     
 }
 
+//--------------
+
 module.exports = function(app) {
+    app.use(bodyParser.json())
+    app.get('/pages/tst', normalizePages) 
+    
+    app.post('/pages/reorder', reorderPages)
     
     app.use(function(req, res, next) {
         res.locals.originalUrl = req.originalUrl
@@ -44,13 +131,14 @@ module.exports = function(app) {
     var MY_PAGES_URL = '/pages'
       , CREATE_PAGE_URL = '/my/pages/create'
       
-    app.get(MY_PAGES_URL, decorators.login_required(function(req, res) {
-        Page.find({
-            userId: req.user._id
-        }, function(err, pages) {
-            res.render('page/index', { pages : pages });
-        });
-    }));
+    app.get(MY_PAGES_URL, decorators.login_required(
+        function(req, res) {
+            Page.find({
+                userId: req.user._id
+            }).sort({order: 1}).exec(function(err, pages) {
+                res.render('page/index', { pages : pages });
+            });
+        }));
     
     
     app.get(CREATE_PAGE_URL, decorators.login_required(

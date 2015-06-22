@@ -13,7 +13,7 @@ block content
   != csrf_field
   ul.sortable.list-group
     each page in pages
-      li.list-group-item(data-page-id="#{page._id}", data-page-order="#{page.order}")= page.title
+      li.list-group-item(data-page-id="#{page._id}")= page.title
         .pull-right
           a(href="/my/pages/" + page._id + "/detail", title="Detail")
             i.glyphicon.glyphicon-search.win-icon-magnifier

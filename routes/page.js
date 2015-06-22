@@ -19,7 +19,7 @@ var _normalizePages = function (username) {
         
         var maxOrderNumber = (Array.isArray(info[0]) && info[0][0].maxOrderNumber) || 0;
         var unorderedPages = info[1];
-        console.log([maxOrderNumber, unorderedPages])
+        console.log("_normalize", maxOrderNumber, unorderedPages)
         
         if (Array.isArray(unorderedPages) && unorderedPages.length) {
             

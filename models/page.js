@@ -75,13 +75,35 @@ var _moveItem = function(info) {
             console.log('resolveddd')
             console.log(bulkResult.getRawResponse())
             resolve(bulkResult)
-        }) 
+        })
     })
 }
 
 
-var _moveItemToEnd = function (movedItemId, maxOrderNumber, username) {
+var _moveItemToEnd = function (info) {
+    var movedItem = info[0]
+    var maxOrderNumber =  (Array.isArray(info[1]) && info[1][0].maxOrderNumber) || 0;
+    var username = info[2]
     
+    return new Promise(function(resolve, reject) {
+        var bulk = PageModel.collection.initializeOrderedBulkOp()
+        bulk.find({order: {$gt: movedItem.order, $lte: maxOrderNumber}, 
+                       username: username })
+                .update({$inc: {order: -1}})
+        bulk.find({_id: movedItem._id, username: username})
+            .updateOne({$set: {order: maxOrderNumber}})
+
+        bulk.execute( function(err, bulkResult) {
+            if (err) {
+                // 
+                console.log(err.toString())
+                reject(err)
+            }
+            //
+            console.log(bulkResult.getRawResponse())
+            resolve(bulkResult)
+        })
+    })
 }
 
 
@@ -95,7 +117,10 @@ Page.statics.reorder = function (movedItemId, targetItemId, username) {
                             getTargetItem.exec(),
                             username]).then(_moveItem)
     } else {
-        return new Promise(function(resolve, reject) { resolve(3); });
+        // return new Promise(function(resolve, reject) { resolve(3); });
+        return Promise.all([getMovedItem.exec(), 
+                            this.getMaxOrderNumberForUser(username).exec(),
+                            username]).then(_moveItemToEnd)
     }
 }
 

@@ -21,7 +21,9 @@ router.get('/login', function (req, res) {
                                           })
 );*/
 
-var PASSWORD_URL = '/changepass'
+const SUCCESS_URL = '/login'
+
+const PASSWORD_URL = '/changepass'
 router.get(PASSWORD_URL, decorators.login_required(function(req, res, next) {
                             res.render('account/changepass');
                          }))
@@ -46,13 +48,13 @@ router.post(PASSWORD_URL, decorators.login_required(function (req, res, next) {
             res.render('account/changepass', {
                 msgs: req.flash()
             })
-        }  
+        }
     })
 }))
 
 router.post('/login', function (req, res, next) {
-    
-    passport.authenticate('local', function (err, user, info) {
+
+    passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
         }
@@ -74,24 +76,26 @@ router.post('/login', function (req, res, next) {
     })(req, res, next);
 });
 
-router.get('/register', function (req, res) {
+router.get('/register', (req, res) => {
     res.render('account/register');
 });
 
-router.get('/logout', function (req, res) {
+router.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
 });
 
-router.post('/register', function (req, res) {
 
-    var username = req.param('username').trim(),
-        password = req.param('password'),
-        confirm = req.param('password-confirm'),
-        redirectURL = '/register',
-        error_found = false;
 
-    User.findOne({ username: username }, function (err, user) {
+router.post('/register', (req, res) => {
+    const username = req.param('username').trim()
+    const password = req.param('password')
+    const confirm = req.param('password-confirm')
+
+    var redirectURL = '/register'
+    var error_found = false
+
+    User.findOne({ username: username }, (err, user) => {
 
         if (password !== confirm) {
             req.flash('error', '两次输入的密码不一致。');
@@ -105,27 +109,24 @@ router.post('/register', function (req, res) {
         }
 
         if (!error_found) {
-
             user = new User({'username': username,
-                             'password': Utility.encrypt(password)});
+                             'password': Utility.encrypt(password)})
 
-            user.save(function (err) {
+            user.save((err) => {
                 if (err) {
                     // error_found = true;
                     if (err.errors.username) {
                         req.flash('username',
-                                  err.errors.username.message);
+                                  err.errors.username.message)
                     }
                 } else {
-                    redirectURL = '/login';
+                    redirectURL = SUCCESS_URL
                 }
-
-                res.redirect(redirectURL);
             });
-        } else {
-            res.redirect(redirectURL);
         }
-    });
-});
+
+        res.redirect(redirectURL)
+    })
+})
 
 module.exports = router;

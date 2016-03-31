@@ -69,10 +69,10 @@ var _moveItem = function(info) {
             if (err) {
                 //
                 console.log(err.toString())
-                reject(err)
+                return reject(err)
             }
             // 
-            console.log('resolveddd')
+            console.log('resolved in Page._moveItem')
             console.log(bulkResult.getRawResponse())
             resolve(bulkResult)
         })
@@ -97,7 +97,7 @@ var _moveItemToEnd = function (info) {
             if (err) {
                 // 
                 console.log(err.toString())
-                reject(err)
+                return reject(err)
             }
             //
             console.log(bulkResult.getRawResponse())

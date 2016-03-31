@@ -1,9 +1,18 @@
 var LOGIN_URL = '/login';
 
+/**
+ * Reterns a action function integrated Authentication
+ * @param {function} func
+ * @param {string} key
+ * @return {function}
+ */
+ 
 var owner_required = function (func, key) {
 	function callf(req, res, next) {
 
-		if (res.locals[key] && req.user && res.locals[key].userId.equals(req.user._id)) {
+		if (res.locals[key] && req.user &&
+			  res.locals[key].userId.equals(req.user._id))
+		{
 			console.log("ower!")
 			return func(req, res, next);
 		} else {
@@ -11,7 +20,7 @@ var owner_required = function (func, key) {
 			res.redirect(login_url);
 		}
 	}
-	
+
 	return callf
 }
 
@@ -24,7 +33,7 @@ var login_required = function (func, next_url) {
 			var login_url = LOGIN_URL + '?next=' + req.originalUrl
 			res.redirect(login_url);
 		}
-	} 
+	}
 
 	return callf
 }

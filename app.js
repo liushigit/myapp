@@ -27,24 +27,24 @@ require('./helpers')(app);
 
 
 passport.use(new LocalStrategy({usernameField: 'u', passwordField: 'pw'},
-    function (username, password, done) {
-        User.findOne({ username: username }, function (err, user) {
+    (username, password, done) => {
+        User.findOne({ username: username }, (err, user) => {
             if (err) {
                 return done(err);
             }
             if (!user || !user.validPassword(password)) {
                 return done(null, false, { message: 'Incorrect username or password.' });
             }
-            
+
             return done(null, user);
         });
     }));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
+passport.deserializeUser((id, done) => {
     User.findById(id, function (err, user) {
         done(err, user);
     });
@@ -69,7 +69,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // functionality provided by
 // See https://github.com/expressjs/method-override
 var methodOveride = require('method-override');
 app.use(methodOveride('_method'));
-app.use(methodOveride(function (req, res) {
+app.use(methodOveride((req, res) => {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
     var method = req.body._method
@@ -90,7 +90,7 @@ app.use(session({
     saveUninitialized: false,
     cookie: { secure: false },
     store: sessionStore
-    
+
 }));
 
 app.use(csrf());
@@ -100,14 +100,14 @@ app.use(passport.session());
 
 
 // some locals in templates
-app.use(function (req, res, next) {
-    res.locals.csrf_field = 
-        '<input id="csrf" type="hidden" name="_csrf" value="' + 
+app.use((req, res, next) => {
+    res.locals.csrf_field =
+        '<input id="csrf" type="hidden" name="_csrf" value="' +
         req.csrfToken() + '">';
     res.locals.user = req.user;
     res.locals.msgs = req.flash();
     next();
-}); 
+});
 
 
 app.use('/', blog_routes);
@@ -115,7 +115,7 @@ app.use('/', account_routes);
 require('./routes/page')(app)
 
 /// catch 404 and forwarding to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -126,7 +126,7 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+    app.use((err, req, res, next) => {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -137,7 +137,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

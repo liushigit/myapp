@@ -5,7 +5,7 @@ var models = require('./models'),
 
     error_handler = function (code, req, res) {
         switch (code) {
-            case 404: 
+            case 404:
                 res.send(404, 'Not found.');
                 break;
             case 403:
@@ -26,7 +26,7 @@ var models = require('./models'),
 
             }
 
-          , function (err, docs) {
+          , (err, docs) => {
                 if (err) {
                     console.log('Error in list_posts_with_tag')
                     return next(err);
@@ -55,7 +55,7 @@ var models = require('./models'),
         .skip(paginated_by * (page - 1))
         .limit(paginated_by)
         .sort({'updated': 'descending'})
-        .exec(  
+        .exec(
             function (err, docs) {
                 if (err) {
                     console.log("err at blog index")
@@ -120,7 +120,7 @@ var models = require('./models'),
                 res.redirect('/u/'+ username + '/blog/');
             } else {
                 req.flash("error", "文章添加失败。");
-                
+
                 res.render('blog/new', {
                     blog: req.body.blog,
                     msgs: req.flash()
@@ -152,7 +152,7 @@ var models = require('./models'),
         if (typeof entry.tags === 'string') {
             entry.tags = [entry.tags];
         }
-        
+
         entry.updated = Date.now();
         update.$set = entry;
 
@@ -236,7 +236,7 @@ var models = require('./models'),
     blog_actions = {
         'update':   login_required(update), // todo: owner required
         'new':      login_required(neu),
-        'index':    login_required(index), // 
+        'index':    login_required(index), //
         'edit':     login_required(edit), // todo: owner required
         'create':   login_required(create),
         'trash':    login_required(trash), // todo: owner required

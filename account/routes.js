@@ -8,7 +8,7 @@ var express = require('express'),
     decorators = require('../useful/actions/decorators')
 
 
-router.get('/login', function (req, res) {
+router.get('/login', (req, res) => {
     res.locals.next_url = req.query.next
     res.render('account/login');
 });
@@ -24,11 +24,11 @@ router.get('/login', function (req, res) {
 const SUCCESS_URL = '/login'
 
 const PASSWORD_URL = '/changepass'
-router.get(PASSWORD_URL, decorators.login_required(function(req, res, next) {
+router.get(PASSWORD_URL, decorators.login_required((req, res, next) => {
                             res.render('account/changepass');
                          }))
 
-router.post(PASSWORD_URL, decorators.login_required(function (req, res, next) {
+router.post(PASSWORD_URL, decorators.login_required((req, res, next) => {
     User.findOne({
         _id: req.user._id,
         password: Utility.encrypt(req.body.old_pw)
@@ -52,7 +52,7 @@ router.post(PASSWORD_URL, decorators.login_required(function (req, res, next) {
     })
 }))
 
-router.post('/login', function (req, res, next) {
+router.post('/login', (req, res, next) => {
 
     passport.authenticate('local', (err, user, info) => {
         if (err) {

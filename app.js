@@ -54,6 +54,7 @@ passport.deserializeUser((id, done) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+//TODO: use gulp to copy files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components/bootstrap/dist/')));
 app.use(express.static(path.join(__dirname, 'bower_components/jquery/dist/')));
@@ -83,8 +84,8 @@ app.use(cookieParser());
 
 var sessionStore = new session.MemoryStore();
 
+//TODO: externalize the secret
 app.use(session({
-
     secret: 'Simple Example',
     resave: true,
     saveUninitialized: false,
@@ -93,6 +94,7 @@ app.use(session({
 
 }));
 
+//TODO: check the use of csrf
 app.use(csrf());
 app.use(flash());
 app.use(passport.initialize());
